@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://blog.tofile.dev/2022/08/22/cloud-forensics.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#ffe4d7">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Linux cloud memory forensics tutorial | pat_h/to/file</title>
+<meta name="generator" content="Jekyll v3.9.2">
+<meta property="og:title" content="Linux cloud memory forensics tutorial">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="tl;dr This is a quick and simple guide to getting and analysing volatile memory dumps from Linux VMs on Azure, AWS, and other cloud providers.">
+<meta property="og:description" content="tl;dr This is a quick and simple guide to getting and analysing volatile memory dumps from Linux VMs on Azure, AWS, and other cloud providers.">
+<link rel="canonical" href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html">
+<meta property="og:url" content="https://blog.tofile.dev/2022/08/22/cloud-forensics.html">
+<meta property="og:site_name" content="pat_h/to/file">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-08-22T07:00:00-05:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Linux cloud memory forensics tutorial">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-08-22T07:00:00-05:00","datePublished":"2022-08-22T07:00:00-05:00","description":"tl;dr This is a quick and simple guide to getting and analysing volatile memory dumps from Linux VMs on Azure, AWS, and other cloud providers.","headline":"Linux cloud memory forensics tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.tofile.dev/2022/08/22/cloud-forensics.html"},"url":"https://blog.tofile.dev/2022/08/22/cloud-forensics.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="./Linux cloud memory forensics tutorial _ pat_h_to_file_files/main.css">
+    <link rel="shortcut icon" type="image/png" href="https://blog.tofile.dev/assets/favicon.png"><link type="application/atom+xml" rel="alternate" href="https://blog.tofile.dev/feed.xml" title="pat_h/to/file"></head>
+<body><header class="site-header" role="banner">
+    <script data-goatcounter="https://stats.tofile.dev/count" async="" src="https://stats.tofile.dev/count.js"></script>
+    <div class="wrapper"><a class="site-title" rel="author" href="https://blog.tofile.dev/">pat_h/to/file</a><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewBox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+  
+          <div class="trigger"><a class="page-link" href="https://blog.tofile.dev/categories/">Categories</a><a class="page-link" href="https://blog.tofile.dev/talks/">Talks</a><a class="page-link" href="https://blog.tofile.dev/about/">About Me</a><a class="page-link" href="https://blog.tofile.dev/security/">Security And Privacy</a></div>
+        </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Linux cloud memory forensics tutorial</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2022-08-22T07:00:00-05:00" itemprop="datePublished">Aug 22, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="tldr">tl;dr</h2>
+<p>This is a quick and simple guide to getting and analysing volatile memory dumps from Linux VMs on Azure, AWS,
+and other cloud providers.</p>
+
+<ul>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#tldr">tl;dr</a></li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#volatility-and-linux">Volatility and Linux</a></li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#a-tale-of-two-halves">A tale of two halves</a></li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#1-a-memory-capture">1. A Memory capture</a></li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#2-an-intermediate-symbol-file-isf">2. An Intermediate Symbol File (ISF)</a>
+    <ul>
+      <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#auto-generate-isf">Auto-Generate ISF</a></li>
+      <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#manually-generating">Manually Generating</a>
+        <ul>
+          <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#ubuntu">Ubuntu:</a></li>
+          <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#debian">Debian:</a></li>
+          <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#centos8-fedora-amazon-linux">Centos8, Fedora, Amazon Linux:</a></li>
+          <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#azure-cbl-mariner">Azure CBL-Mariner:</a></li>
+          <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#generating-an-isf">Generating an ISF</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#using-isf">Using ISF</a></li>
+  <li><a href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html#conclusion">Conclusion</a></li>
+</ul>
+
+<h2 id="volatility-and-linux">Volatility and Linux</h2>
+<p><a href="https://github.com/volatilityfoundation/volatility3">Volatility</a> is the main open source tool to forensicically
+analyse volatile memory captures. But using Volatility to analyse Linux images can be confusing, especially
+as the process changed massivly from Volatility 2 to 3, so I thought I’d write up a quick guide explaining
+how to go about getting and analysing memory captures of Linux Virtual Machines (VMs) when they are hosted on a cloud provider (Azure, AWS, etc.)</p>
+
+<h2 id="a-tale-of-two-halves">A tale of two halves</h2>
+<p>There are two components needed to analyse a Linux memory Image, A volatile memory capture and an Intermediate Symbol File, or ISF.</p>
+
+<h2 id="1-a-memory-capture">1. A Memory capture</h2>
+<p>The memory capture will be taken from the machine you wish to analyse.
+The easiest way to do this is using <a href="https://github.com/microsoft/avml">AVML</a> from Microsoft. This script will download the latest version of avml, and write
+a compressed memory capture to disk as <code class="language-plaintext highlighter-rouge">capture.lime.compressed</code>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/microsoft/avml/releases/latest/download/avml
+<span class="c"># OR if wget is not installed:</span>
+curl <span class="nt">-LO</span> https://github.com/microsoft/avml/releases/latest/download/avml
+
+<span class="nb">chmod </span>ugo+x ./avml
+<span class="nb">sudo</span> ./avml <span class="nt">--compress</span> capture.lime.compressed
+</code></pre></div></div>
+
+<p>I don’t do the analysis on the same machine, but instead transfer the image
+to my workstation for further analysis. On some version of Linux and Volatility I
+encounter an issue analysing compressed images, where the program hangs indefinetly. I work around this by using <code class="language-plaintext highlighter-rouge">avml-convert</code> to decompress the image on my workstation first:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/microsoft/avml/releases/latest/download/avml-convert
+<span class="nb">chmod </span>u+x ./avml-convert
+./avml-convert capture.lime.compressed capture.lime
+</code></pre></div></div>
+
+<h2 id="2-an-intermediate-symbol-file-isf">2. An Intermediate Symbol File (ISF)</h2>
+<p>This is the part that has changed the most from Volatility 2, and is the part
+that initially confuses most people (including me).</p>
+
+<p>You need to generate a special JSON file that contains the symbols from a <em>matching</em> Linux kernel. This file is called an Intermediate Symbol File or ISF.
+If they don’t match, Volatility won’t let you analyse the image, as it need to be able to precisly say where to look in the memory capture.
+Even very minor version differences can move the location of kernel objects needed for the analysis, so it’s important to generate a matching ISF for each memory capture.</p>
+
+<p>There are lists of pre-generated ISF files, such as <a href="https://isf-server.techanarchy.net/">KevTheHermits’s excelent site</a>. But as you kernel has to match exactly with the ISF file, it’s possible that you may need to generate your own.</p>
+
+<h3 id="auto-generate-isf">Auto-Generate ISF</h3>
+<p>Thankfully, KevTheHermit has also created a <a href="https://github.com/kevthehermit/volatility_symbols">super useful tool to generate new ISFs</a>. It can create ISF files for:</p>
+<ul>
+  <li>Ubuntu</li>
+  <li>Debian</li>
+  <li>Fedora</li>
+  <li>AWS’ Amazon Linux 2</li>
+  <li>Azure’s CBL-Mariner 2</li>
+</ul>
+
+<p>To use KevTheHermit’s tool, first run this command on the target image, to get the exact kernel version:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">uname</span> <span class="nt">-r</span>
+<span class="c"># output should be something like:</span>
+<span class="c"># "5.11.0-43-generic" or</span>
+<span class="c"># "4.14.281-212.502.amzn2.x86_64"</span>
+</code></pre></div></div>
+
+<p>Then run the tool, selecting the Linux distribution and passing in the output from <code class="language-plaintext highlighter-rouge">uname</code>. e.g. to get a CBL-Mariner ISF:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python symbol_maker.py <span class="nt">--distro</span> cbl-mariner <span class="nt">--kernel</span> <span class="s2">"5.15.48.1-2.cm2"</span>
+</code></pre></div></div>
+
+<p>To generate an ISF for Debian or Ubuntu, use <code class="language-plaintext highlighter-rouge">--branch</code> to tell the tool what cloud service the image is on, either:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">linux</code> If a non-cloud image</li>
+  <li><code class="language-plaintext highlighter-rouge">linux-aws</code> If on AWS</li>
+  <li><code class="language-plaintext highlighter-rouge">linux-azure</code> If on Azure</li>
+  <li><code class="language-plaintext highlighter-rouge">linux-gcp</code> If on Google Cloud Compute</li>
+</ul>
+
+<p>e.g. to generate an ISF for an Ubuntu machine running on AWS:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python symbol_maker.py <span class="nt">--distro</span> ubuntu <span class="nt">--branch</span> linux-aws <span class="nt">--kernel</span> <span class="s2">"5.13.0-1031-aws"</span>
+</code></pre></div></div>
+
+<p>If generating an Amazon Linux ISF, use <code class="language-plaintext highlighter-rouge">--branch 2</code> for Amazon Linux 2 (the only version supported).</p>
+
+<p>The tool will take a while as it downloads about 1GB of data, before outputting
+the ISF json file to disk in the  <code class="language-plaintext highlighter-rouge">symbol_files/&lt;distro&gt;/&lt;kernel&gt;</code> folder.</p>
+
+<h3 id="manually-generating">Manually Generating</h3>
+<p>Unfortunetly, sometimes even KevTheHermit’s tool won’t be able to get exactly the right kernel. Sometimes if the ‘banner’
+(the string that identifies the exact kernel version) is <strong>extremely</strong> similar (e.g. only the build timestamp is different), you can
+edit the Banner in the ISF JSON file to match your image. But typically, if KevTheHermit’s tool can’t get the same kernel,
+it means you need to manually generate your own ISF.</p>
+
+<p>The advantage of the cloud is that VMs should be running from a known and re-usable base image. I reccomend creating a new-but-matching VM to the one you caputred
+memory from, so you don’t taint the machine with uneeded data.</p>
+
+<p>In AWS, the ID of the image is the <code class="language-plaintext highlighter-rouge">AMI</code>, and you can list the AMI ID of a running VM using either the Web UI, or the aws commandline:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Look for "ImageId"</span>
+aws ec2 describe-instances <span class="nt">--instance-ids</span> i-1234567890abcdef0
+</code></pre></div></div>
+
+<p>You can then use this exact AMI ID to create a new machine that should have a matching kernel.
+Other cloud providers have different ways of getting the base Image ID.
+You don’t need a particularly powerful VM (my tests were on a 1CPU 2GB RAM), but you will need ~15GB of disk space.</p>
+
+<p>To generate an ISF, you need two files:</p>
+<ul>
+  <li>System.map</li>
+  <li>A debug version of the current Linux kernel</li>
+</ul>
+
+<p>Most linux distributions should have the <code class="language-plaintext highlighter-rouge">System.Map</code> file under the <code class="language-plaintext highlighter-rouge">/boot/</code> directory with a name that matches the version of the kenrel, i.e.:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/boot/System.map-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>
+</code></pre></div></div>
+
+<p>To download a debug kernel, the process is different depending on the Linux distribution. I’ve captured the most common ones below:</p>
+
+<h4 id="ubuntu">Ubuntu:</h4>
+<p>(Tested on AWS, Azure, and DigitalOcean)</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--yes</span> ubuntu-dbgsym-keyring
+<span class="nb">sudo tee</span> /etc/apt/sources.list.d/debug.list <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+deb http://ddebs.ubuntu.com </span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span><span class="sh"> main restricted universe multiverse
+deb http://ddebs.ubuntu.com </span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span><span class="sh">-updates main restricted universe multiverse
+deb http://ddebs.ubuntu.com </span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span><span class="sh">-proposed main restricted universe multiverse
+</span><span class="no">EOF
+
+</span><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--yes</span> linux-image-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span><span class="nt">-dbgsym</span>
+<span class="c"># Debug kernel is at: /usr/lib/debug/boot/vmlinux-$(uname -r)</span>
+</code></pre></div></div>
+
+<h4 id="debian">Debian:</h4>
+<p>(Tested on AWS)</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo tee</span> /etc/apt/sources.list.d/debug.list <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+deb http://deb.debian.org/debian-debug/ </span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span><span class="sh">-debug main
+deb http://deb.debian.org/debian-debug/ </span><span class="si">$(</span>lsb_release <span class="nt">-cs</span><span class="si">)</span><span class="sh">-proposed-updates-debug main
+</span><span class="no">EOF
+
+</span><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">--yes</span> linux-image-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span><span class="nt">-dbg</span>
+<span class="c"># Debug kernel is at: /usr/lib/debug/boot/vmlinux-$(uname -r)</span>
+</code></pre></div></div>
+
+<h4 id="centos8-fedora-amazon-linux">Centos8, Fedora, Amazon Linux:</h4>
+<p>(Tested on AWS, should work for other RHEL-like distros)</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nt">--enablerepo</span><span class="o">=</span><span class="s1">'*-debuginfo'</span> <span class="nb">install </span>kernel-debuginfo-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>
+<span class="c"># Debug kernel is at: /usr/lib/debug/lib/modules/$(uname -r)/vmlinux</span>
+</code></pre></div></div>
+
+<h4 id="azure-cbl-mariner">Azure CBL-Mariner:</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>yum <span class="nb">install </span>mariner-repos-debug
+<span class="nb">sudo </span>yum <span class="nb">install </span>kernel-debuginfo-<span class="si">$(</span><span class="nb">uname</span> <span class="nt">-r</span><span class="si">)</span>
+<span class="c"># Debug kernel is at: /usr/lib/debug/lib/modules/$(uname -r)/vmlinux</span>
+</code></pre></div></div>
+
+<h4 id="generating-an-isf">Generating an ISF</h4>
+<p>Once I have a debug kernel, I transfer it from the VM to my workstation.
+You can in theory do this next step on the VM, but it requires a machine with 4GB+ of
+memory and a decent CPU, and I typically just run tiny VMs in the cloud and do bulky things on my workstation.</p>
+
+<p>Build a copy of <a href="https://github.com/volatilityfoundation/dwarf2json">Dwarf2JSON</a>, a tool from the Volatility team. If you don’t already have Go installed, you
+can grab a pre-built version by me <a href="https://github.com/pathtofile/dwarf2json/releases/latest">on GiHub here</a>. Then run dwarf2JSON to generate the ISF, pointing it at the debug kernel you downloaded from the VM:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://github.com/pathtofile/dwarf2json/releases/latest/download/dwarf2json-linux-amd64 <span class="nt">-O</span> dwarf2json
+<span class="nb">chmod </span>u+x dwarf2json
+./dwarf2json linux <span class="nt">--system-map</span> &lt;/path/to/System.map&gt; <span class="nt">--elf</span> &lt;/path/to/vmlinux_from_vm&gt; <span class="o">&gt;</span> dbgkernel_aws_ubuntu.json
+</code></pre></div></div>
+
+<h2 id="using-isf">Using ISF</h2>
+<p>Once you’ve generated the ISF JSON file, Clone the Volatility3 repo and install the Python3 dependecies:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/volatilityfoundation/volatility3.git
+<span class="nb">cd </span>volatility3
+pip <span class="nb">install</span> <span class="nt">-r</span> requirements.txt
+</code></pre></div></div>
+
+<p>Next copy the ISF JSON file to <code class="language-plaintext highlighter-rouge">volatility3/volatility3/framework/symbols/linux/</code>. Run this command to check that Volatility
+found your ISF file and was able to parse the banner text:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$&gt;</span> python vol.py isfinfo.IsfInfo
+Volatility 3 Framework 2.3.0
+URI     Valid   Number of base_types    Number of types Number of symbols       Number of enums Windows info    Linux banner    Mac banner
+file:///home/path/code/volatility/volatility3/volatility3/framework/symbols/linux/dbgkernel_aws_ubuntu.json     Unknown 19      11925   199625  2110    -       Linux version 5.15.0-1015-aws <span class="o">(</span>buildd@lcy02-amd64-063<span class="o">)</span> <span class="o">(</span>gcc <span class="o">(</span>Ubuntu 9.4.0-1ubuntu1~20.04.1<span class="o">)</span> 9.4.0, GNU ld <span class="o">(</span>GNU Binutils <span class="k">for </span>Ubuntu<span class="o">)</span> 2.34<span class="o">)</span> <span class="c">#19~20.04.1-Ubuntu SMP Wed Jun 22 19:07:51 UTC 2022 (Ubuntu 5.15.0-1015.19~20.04.1-aws 5.15.39)</span>
+....
+</code></pre></div></div>
+
+<p>You can also check the banner in your memory capture by running:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$&gt;</span> python vol.py <span class="nt">-f</span> &lt;/path/to/memory_capture.lime&gt; banners.Banners
+Volatility 3 Framework 2.3.0
+Progress:  100.00               Stacking attempts finished
+Offset  Banner
+0x5da8f38       Linux version 5.15.0-1015-aws <span class="o">(</span>buildd@lcy02-amd64-063<span class="o">)</span> <span class="o">(</span>gcc <span class="o">(</span>Ubuntu 9.4.0-1ubuntu1~20.04.1<span class="o">)</span> 9.4.0, GNU ld <span class="o">(</span>GNU Binutils <span class="k">for </span>Ubuntu<span class="o">)</span> 2.34<span class="o">)</span> <span class="c">#19~20.04.1-Ubuntu SMP Wed Jun 22 19:07:51 UTC 2022 (Ubuntu 5.15.0-1015.19~20.04.1-aws 5.15.39)</span>
+...
+</code></pre></div></div>
+
+<p>If they match up, then you can start using Volatility to analyse the image. For example, to list the processes running at the
+time of catprue:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$&gt;</span> python vol.py <span class="nt">-f</span> &lt;/path/to/memory_capture.lime&gt; linux.pslist
+Volatility 3 Framework 2.3.0
+Progress:  100.00               Stacking attempts finished
+OFFSET <span class="o">(</span>V<span class="o">)</span>      PID     TID     PPID    COMM
+
+0x9ea501284b00  1       1       0       systemd
+0x9ea501281900  2       2       0       kthreadd
+0x9ea501280000  3       3       2       rcu_gp
+...
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>Capturing and analysing memory from Linux machines does take a few steps, however hopefully this blog clears up some
+of the confusion about Volatility 3 and Linux, and provides a useful guide to getting and analysing cloud images.</p>
+
+  </div><a class="u-url" href="https://blog.tofile.dev/2022/08/22/cloud-forensics.html" hidden=""></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">pat_h/to/file</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">pat_h/to/file</li><li><a class="u-email" href="mailto:path[at]tofile[dot]dev">path[at]tofile[dot]dev</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/pathtofile"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">pathtofile</span></a></li><li><a href="https://www.twitter.com/pathtofile"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">pathtofile</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>PatH's infosec blog</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+</body></html>
