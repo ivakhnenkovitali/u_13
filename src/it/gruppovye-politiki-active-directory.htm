@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="yandex-verification" content="e01f12707c271f9b" />
+<!-- Google Tag Manager -->
+<script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-N65D79');</script>
+<!-- End Google Tag Manager -->
+<link rel="stylesheet preload prefetch" as="style" href="https://static.1cloud.ru/css/global/bootstrap.min.css" />
+<link rel="stylesheet preload prefetch" as="style" href="https://static.1cloud.ru/css/global/owl.carousel-v2.css" />
+<link rel="stylesheet preload prefetch" as="style" href="https://static.1cloud.ru/css/global/bootstrap-select.min.css" />
+<link rel="stylesheet preload prefetch" as="style" href="https://static.1cloud.ru/css/global/jquery-ui-v2.min.css" />
+<link rel="stylesheet" href="/css/main" />
+
+<link rel="shortcut icon" href="/img/favicon/favicon.ico">
+<meta name="msapplication-config" content="/img/favicon/browserconfig.xml">
+<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="/img/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/img/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+<meta property="og:image" content="https://1cloud.ru/img/logo.png" />
+<meta property="og:image:secure_url" content="https://1cloud.ru/img/logo.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="135" />
+<meta property="og:image:height" content="41" />
+<meta property="og:image:alt" content="1cloud logo" />
+    <link rel="canonical" href="https://1cloud.ru/help/windows/gruppovye-politiki-active-directory" />
+    <title>Инструкция по работе с групповыми политиками Active Directory</title>
+    <meta name="keywords" content="Active Directory, Windows Server." />
+
+        <meta name="description" content="Что такое групповые политики Active Directory (AD GPO) и как ими управлять. Возможности GPO - создание, удаление и поиск объектов групповой политики" />
+
+
+    
+    <link rel="amphtml" href="/help/amp/windows/gruppovye-politiki-active-directory" />
+
+
+    <script type="application/ld+json">
+        {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "url": "https://1cloud.ru/",
+        "logo": "https://1cloud.ru/img/logo.svg"
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N65D79" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="maincontainer">
+        <div role="banner" class="hidden" itemscope itemtype="https://schema.org/WPHeader">
+            <span itemprop="name">Инструкция по работе с групповыми политиками Active Directory</span>
+            <span itemprop="keywords">Active Directory, Windows Server.</span>
+<span itemprop="description">Что такое групповые политики Active Directory (AD GPO) и как ими управлять. Возможности GPO - создание, удаление и поиск объектов групповой политики</span>                    </div>
+
+        
+
+<header class="header main-header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="logo header__logo col-xs-6 col-xs-offset-2 col-sm-offset-1 col-md-2 col-md-offset-0" role="banner">
+                    <a href="/" class="logo__link"><img class="logo__img img-responsive header__logo-img" src="/img/logo_white_horizontal.svg" alt="" width="164" height="44"></a>
+                </div>
+                <nav class="menu-main menu-top col-md-9 col-lg-8 visible-md visible-lg" itemscope itemtype="https://www.schema.org/SiteNavigationElement">
+                    <ul>
+
+
+<li class="dropdown menu-main__services">
+    <a href="/services" class="dropdown-toggle" itemprop="url">Услуги</a>
+    <div class="dropdown-menu">
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-infrastructure"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Инфраструктура</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/services/vps-vds">Виртуальный сервер</a>
+                        </li>
+                        <li>
+                            <a href="/services/cloud-servers">VPS/VDS <small>на базе Open Source</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/vdc">Виртуальный ЦОД</a>
+                        </li>
+                        <li>
+                            <a href="/services/private-cloud">Частное облако</a>
+                        </li>
+                        <li>
+                            <a href="/services/rds-vdi">RDS/VDI <small>удалённый рабочий стол</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/licenses">Партнёрские лицензии</a>
+                        </li>
+                        <li>
+                            <a href="/services/colocation">Colocation</a>
+                        </li>
+                        <li>
+                            <a href="/services/disaster-recovery">Disaster Recovery</a>
+                        </li>
+                        <li>
+                            <a href="/services/kubernetes">Kubernetes</a>
+                        </li>
+                        <li>
+                            <a href="/services/baas">BaaS</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-storage"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Хранение данных</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/services/cloud-disk">Диск 1cloud <small>файловое хранилище</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/storage">Облачное хранилище S3</a>
+                        </li>
+                        <li>
+                            <a href="/services/veeam-cloud-connect">Veeam Cloud Connect</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-cdn"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Сети</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/services/dns">DNS-хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/services/anti-ddos">Anti-DDoS <small>Qrator</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/cdn">CDN</a>
+                        </li>
+                        <li>
+                            <a href="/services/sd-wan">SD-WAN</a>
+                        </li>
+                        <li>
+                            <a href="/services/domains">Домены (<span class="new">new</span>)</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-security"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Безопасность</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/services/fz-152">Облако ФЗ-152</a>
+                        </li>
+                        <li>
+                            <a href="/services/pci-dss">PCI DSS хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/services/ssl-globalsign">SSL-сертификаты</a>
+                        </li>
+                        <li>
+                            <a href="/services/waf">WAF</a>
+                        </li>
+                        <li>
+                            <a href="/services/soc">SOC</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-clouds"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Мультиоблако</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/services/azure">Microsoft Azure</a>
+                        </li>
+                        <li>
+                            <a href="/services/aws">Amazon Web Services</a>
+                        </li>
+                </ul>
+            </div>
+    </div>
+</li>
+
+<li class="dropdown menu-main__services">
+    <a href="/proektnye-resheniya" class="dropdown-toggle" itemprop="url">Проектные решения</a>
+    <div class="dropdown-menu">
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-consulting"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Консалтинг</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/proektnye-resheniya/cloud-journey">Cloud journey</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/audit-i-proektirovanie">Аудит и проектирование</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/informacionnaya-bezopasnost">Информационная безопасность</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-realization"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Реализация</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/proektnye-resheniya/professionalnye-servisy">Профессиональные сервисы</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/migraciya-v-oblako">Миграция в облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/upravlenie-oblachnoj-infrastrukturoj">Управление инфраструктурой</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-solutions"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Решения</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/proektnye-resheniya/private-cloud">Частное облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/hybrid-cloud">Гибридное облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/sap-hosting">SAP-хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/kompleksnye-infrastrukturnye-proekty">Комплексные инфраструктурные проекты</a>
+                        </li>
+                </ul>
+            </div>
+    </div>
+</li>
+
+<li class="dropdown menu-main__services">
+    <a href="/company" class="dropdown-toggle" itemprop="url">О компании</a>
+    <div class="dropdown-menu">
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-info"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Общая информация</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/company/contact">Контакты</a>
+                        </li>
+                        <li>
+                            <a href="/company/feedback/1">Отзывы</a>
+                        </li>
+                        <li>
+                            <a href="/news/1">Новости</a>
+                        </li>
+                        <li>
+                            <a href="/blog/1">Блог</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-dc"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">ЦОДы</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/infrastructure/datacenter-saint-petersburg">ЦОД Санкт-Петербург</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-moskow">ЦОД Москва</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-astana">ЦОД Астана</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-almaty">ЦОД Алма-Ата</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-minsk">ЦОД Минск</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-tallinn">ЦОД Таллин</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-amsterdam">ЦОД Амстердам</a>
+                        </li>
+                </ul>
+            </div>
+            <div class="menu-main__services-item">
+                <span class="menu-main__services-title">
+                    <span class="menu-main__services-title-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" version="1.1" preserveAspectRatio="xMinYMin">
+                            <use xlink:href="#img-menu-structure"></use>
+                        </svg>
+                    </span>
+                    <span class="menu-main__services-title-text">Структура облака</span>
+                </span>
+                <ul class="menu-main__services-submenu">
+                        <li>
+                            <a href="/infrastructure/panel-upravleniya">Панель управления</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/hardware">Оборудование</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/arkhitektura-oblaka-1cloud">Архитектура облака</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/puly-resursov">Пулы ресурсов</a>
+                        </li>
+                </ul>
+            </div>
+    </div>
+</li>
+    <li class="dropdown">
+        <a href="/conditions" class="dropdown-toggle" itemprop="url">Условия</a>
+        <ul class="dropdown-menu">
+                <li>
+                    <a href="/conditions/paymentrule">Стоимость</a>
+                </li>
+                <li>
+                    <a href="/conditions/useragreement">Оферта</a>
+                </li>
+                <li>
+                    <a href="/conditions/sla">SLA</a>
+                </li>
+                <li>
+                    <a href="/conditions/referral">Партнёрская программа</a>
+                </li>
+                <li>
+                    <a href="/conditions/test-period">Тестовый период</a>
+                </li>
+        </ul>
+    </li>
+
+    <li itemprop="name">
+        <a href="/help" itemprop="url">Помощь</a>
+    </li>
+
+    <li itemprop="name">
+        <a href="/blog" itemprop="url">Блог</a>
+    </li>
+                    </ul>
+                </nav>
+                <div class="header__right col-lg-2">
+                    <div class="header__right-block visible-xs visible-md">
+                        <a class="header__icon oc-icon-user hidden" id="header-icon-user" href="https://panel.1cloud.ru/" data-title="Вход/Регистрация" data-title-active="Панель управления"></a>
+                    </div>
+                    <div class="header__right-block visible-sm visible-lg">
+                        <a class="btn btn-secondary hidden" id="header-reg-btn" href="https://panel.1cloud.ru/" data-title="Войти" data-title-active="Панель управления">Войти</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<svg display="none">
+    <defs>
+        <g id="img-menu-backup">
+            <path xmlns="http://www.w3.org/2000/svg" d="M16 1v6l3.25-3z" transform="translate(-8 -.5)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M15.213 8.035l-1.5 1.5A4 4 0 1 1 10 7V5a6 6 0 1 0 5.215 3.035z" transform="translate(-1.998 -2.5)" />
+        </g>
+        <g id="img-menu-cdn">
+            <path xmlns="http://www.w3.org/2000/svg" d="M9 2a7 7 0 1 0 7 7 7 7 0 0 0-7-7zm4.9 6h-1.225a9.1 9.1 0 0 0-1-3.225A5 5 0 0 1 13.9 8zM9 13.61A7 7 0 0 1 7.33 10h3.32A6.94 6.94 0 0 1 9 13.61zM7.33 8A7 7 0 0 1 9 4.39 6.94 6.94 0 0 1 10.65 8zm-1-3.2a8.96 8.96 0 0 0-1 3.2H4.1a5 5 0 0 1 2.21-3.205zM4.1 10h1.2a8.96 8.96 0 0 0 1 3.205A5 5 0 0 1 4.1 10zm7.565 3.225a9.1 9.1 0 0 0 1-3.225H13.9a5 5 0 0 1-2.235 3.225z" transform="translate(-1 -1)" />
+        </g>
+        <g id="img-menu-clouds">
+            <path xmlns="http://www.w3.org/2000/svg" d="M3.749 10.112a2.745 2.745 0 0 1 .965-4.345l.32-.145.16-.33a4 4 0 0 1 7.135-.1 6 6 0 0 1 2.41 1.155A6 6 0 0 0 3.584 4.092a4.745 4.745 0 0 0-.5 8.07 4.5 4.5 0 0 1 .665-2.05z" transform="translate(-.534 -.542)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M14.015 21h-3.5a3.5 3.5 0 0 1-1.165-6.8 5 5 0 1 1 4.665 6.8zm0-8a3 3 0 0 0-2.91 2.28l-.16.645-.655.1A1.5 1.5 0 0 0 10.515 19h3.5a3 3 0 0 0 0-6z" transform="translate(-3.515 -5.499)" />
+        </g>
+        <g id="img-menu-extra">
+            <circle xmlns="http://www.w3.org/2000/svg" cx="2" cy="2" r="2" transform="translate(6 6)" />
+            <circle xmlns="http://www.w3.org/2000/svg" cx="2" cy="2" r="2" transform="translate(11 6)" />
+            <circle xmlns="http://www.w3.org/2000/svg" cx="2" cy="2" r="2" transform="translate(1 6)" />
+        </g>
+        <g id="img-menu-infrastructure">
+            <path xmlns="http://www.w3.org/2000/svg" d="M12.564 16.08H5.776a4.777 4.777 0 0 1-2.233-9 6.035 6.035 0 0 1 11.28 2.786 3.52 3.52 0 0 1-2.258 6.216zM8.793 6.023a4.023 4.023 0 0 0-3.611 2.263l-.161.332-.337.146a2.766 2.766 0 0 0 1.091 5.305h6.789a1.509 1.509 0 0 0 .744-2.821l-.548-.312.045-.7v-.191a4.023 4.023 0 0 0-4.012-4.022z" transform="translate(-.495 -2)" />
+        </g>
+        <g id="img-menu-security">
+            <path xmlns="http://www.w3.org/2000/svg" d="M9.511 16.1l-.436-.21C4.593 13.71 3 11.657 3 4.469V3.7l6.511-1.77 6.511 1.77v.766c0 7.187-1.593 9.241-6.075 11.419zM5 5.231c.1 5.7 1.312 7.037 4.508 8.64 3.19-1.6 4.408-2.935 4.508-8.64L9.511 4z" transform="translate(-1.497 -.963)" />
+        </g>
+        <g id="img-menu-storage">
+            <path xmlns="http://www.w3.org/2000/svg" d="M10.5 23.1L5 20.65V16h2v3.35l3.5 1.55 3.5-1.55V16h2v4.65z" transform="translate(-2.5 -8)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M9.67 12L8.635 9.93 7.6 12 1.27 9.185 3.4 4.93 8.635 2.6l5.235 2.33L16 9.185zm.32-3.825L10.6 9.4l2.67-1.2-.635-1.24zm-6 .03L6.66 9.4l.61-1.22-2.635-1.22zM6.635 5.68l2 .915 2-.915-2-.88z" transform="translate(-.635 -1.3)" />
+        </g>
+        <g id="img-menu-structure">
+            <path xmlns="http://www.w3.org/2000/svg" d="M11 11H9v-1h3a3 3 0 0 0 .92-5.84 5 5 0 0 0-9-2A4 4 0 0 0 5 10h2v1H5a3 3 0 0 0-3 3H1v2h4v-2H4a1 1 0 0 1 1-1h2v1H6v2h4v-2H9v-1h2a1 1 0 0 1 1 1h-1v2h4v-2h-1a3 3 0 0 0-3-3zM3 6a2 2 0 0 1 1.44-1.9l.68-.2.4-.59a2.989 2.989 0 0 1 5.42 1.18l.21 1.2 1.15.37A1 1 0 0 1 12 8H5a2 2 0 0 1-2-2z" />
+        </g>
+        <g id="img-menu-dc">
+            <path xmlns="http://www.w3.org/2000/svg" d="M13 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zM3 13V9h10V7H3V3h10v10z" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M0 0H4V2H0z" transform="translate(8 4)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M0 0H4V2H0z" transform="translate(8 10)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M0 0H2V2H0z" transform="translate(4 4)" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M0 0H2V2H0z" transform="translate(4 10)" />
+        </g>
+        <g id="img-menu-info">
+            <path xmlns="http://www.w3.org/2000/svg" d="M13.79 6.44A6 6 0 0 0 3.26 4.33 5 5 0 0 0 5 14c2.82 0 4-1.79 5-4.68L10.39 8H7.62l1.27-2.55-1.78-.9L4.38 10h3.17C6.73 11.84 6 12 5 12a3 3 0 0 1-1-5.8l.49-.2.35-.45a4 4 0 0 1 7 1.41l.23.86.8.41A1.981 1.981 0 0 1 12 12h-2l-1 2h3a4 4 0 0 0 1.79-7.56z" />
+        </g>
+        <g id="img-menu-solutions">
+            <path xmlns="http://www.w3.org/2000/svg" d="M8 16a8.16 8.16 0 0 1-1.39-.12l-.73-.13-.24-2a6.73 6.73 0 0 1-.76-.38 5.82 5.82 0 0 1-.71-.47l-1.82.77-.48-.57a7.53 7.53 0 0 1-.8-1.1 8.49 8.49 0 0 1-.59-1.26L.23 10l1.58-1.15a6.05 6.05 0 0 1 0-1.7L.23 6l.25-.7A8.49 8.49 0 0 1 1.07 4a7.53 7.53 0 0 1 .8-1.14l.48-.57 1.82.77a6.58 6.58 0 0 1 .7-.47 7.85 7.85 0 0 1 .77-.38l.24-2 .73-.09a8.11 8.11 0 0 1 2.78 0l.73.13.24 2a6.73 6.73 0 0 1 .76.38 5.82 5.82 0 0 1 .71.47l1.82-.77.48.57a7.53 7.53 0 0 1 .8 1.1 8.49 8.49 0 0 1 .59 1.26l.25.7-1.58 1.19a6.05 6.05 0 0 1 0 1.7L15.77 10l-.25.7a8.49 8.49 0 0 1-.59 1.3 7.53 7.53 0 0 1-.8 1.14l-.48.57-1.82-.77a6.58 6.58 0 0 1-.7.47 7.85 7.85 0 0 1-.77.38l-.24 2-.73.13A8.16 8.16 0 0 1 8 16zm-.32-2h.64l.22-1.72.63-.19a4.26 4.26 0 0 0 1.78-1l.48-.46 1.6.67.17-.3.15-.28L12 9.67l.12-.67a4.15 4.15 0 0 0 0-2.06L12 6.33l1.39-1L13.2 5l-.2-.27-1.6.67-.4-.46a4.26 4.26 0 0 0-1.78-1l-.63-.19L8.32 2h-.64l-.22 1.73-.63.19a4.26 4.26 0 0 0-1.78 1l-.48.46L3 4.73 2.8 5l-.15.28L4 6.33 3.88 7a4.15 4.15 0 0 0 0 2l.12.67-1.35 1.05.15.28.17.27 1.6-.67.48.46a4.26 4.26 0 0 0 1.78 1l.63.19z" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M8 11a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm0-4a1 1 0 1 0 1 1 1 1 0 0 0-1-1z" />
+        </g>
+        <g id="img-menu-realization">
+            <path xmlns="http://www.w3.org/2000/svg" d="M12.564 16.08H5.776a4.777 4.777 0 0 1-2.233-9 6.035 6.035 0 0 1 11.28 2.786 3.52 3.52 0 0 1-2.258 6.216zM8.793 6.023a4.023 4.023 0 0 0-3.611 2.263l-.161.332-.337.146a2.766 2.766 0 0 0 1.091 5.305h6.789a1.509 1.509 0 0 0 .744-2.821l-.548-.312.045-.7v-.191a4.023 4.023 0 0 0-4.012-4.022z" transform="translate(-.495 -2)" />
+        </g>
+        <g id="img-menu-consulting">
+            <path xmlns="http://www.w3.org/2000/svg" d="M8 3a5 5 0 1 1-5 5 5 5 0 0 1 5-5m0-2a7 7 0 1 0 7 7 7 7 0 0 0-7-7z" />
+            <path xmlns="http://www.w3.org/2000/svg" d="M11 5L7 7l-2 4 4-2 2-4z" />
+        </g>
+    </defs>
+</svg>
+
+
+        
+        <div class="smallnav hidden-xs">
+            <div class="container">
+                <div class="row">
+                    
+<div class="breadcrumb-list col-sm-12 pull-left hidden-xs">
+    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="home" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <meta itemprop="position" content="0">
+            <a itemprop="item" href="/">
+                <span itemprop="name">Главная</span>
+            </a>
+        </li>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <meta itemprop="position" content="1">
+                <a itemprop="item" href="/help">
+                    <span itemprop="name">Помощь</span>
+                </a>
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <meta itemprop="position" content="2">
+                <a itemprop="item" href="/help/windows">
+                    <span itemprop="name">Вопросы по Windows</span>
+                </a>
+            </li>
+            <li class="active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <meta itemprop="position" content="3">
+                <a itemprop="item" href="/help/windows/gruppovye-politiki-active-directory">
+                    <span itemprop="name">Управление групповыми политиками Active Directory (AD GPO) на Windows Server</span>
+                </a>
+            </li>
+    </ol>
+</div>
+
+                </div>
+            </div>
+        </div>
+        <section class="main-content main-content--sidebar">
+            <div class="container">
+                <div class="row">
+                    <main class="content col-xs-12 col-md-9 pull-right">
+                        
+
+
+
+
+<a href="https://panel.1cloud.ru/consultation/request" target="_blank" class="help__banner-webinar" title="Консультация по продукту 1cloud" onclick="reachCounterGoal('help-consult-banner', 'banner', 'Управление групповыми политиками Active Directory (AD GPO) на Windows Server');">
+    <picture>
+        <source srcset="/img/help-consult-banner-sm.jpg" media="(max-width: 767px)">
+        <img class="img-responsive" src="/img/help-consult-banner.jpg" width="860" height="220" alt="Консультация по продукту 1cloud" />
+    </picture>
+</a>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "CreativeWorkSeries",
+    "name": "Управление групповыми политиками Active Directory (AD GPO) на Windows Server",
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4,9",
+        "bestRating": "5",
+        "ratingCount": "28"
+    }
+}
+</script>
+
+<div class="help code" itemscope itemtype="https://schema.org/Article">
+	<div class="content__block blog__content" id="help-content">
+		<h1 class="heading__text heading__text--left" itemprop="name">Управление групповыми политиками Active Directory (AD GPO) на Windows Server</h1>
+
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8P558-r6kTRPimtSAsQgzbeGXaHX3O5fFLkbyT7iv5bY7WGP9IUN_Ac59Uv_PTvjexnFycIgzmoMyYzwgrlJ_sWhrF7n5-E84KNkIs8WVl3CydHg9GvSoQAcPm7BBDIZP7qp0OtCGoLQUVxmwWiYTns" />
+
+			<div id="video-schema" itemid="https://www.youtube.com/embed/LHkQh4P0shI" itemprop="video" itemscope itemtype="https://schema.org/VideoObject">
+				<div id="video-schema-meta">
+					<span itemprop="description">Пошаговая инструкция по управлению групповыми политиками Active Directory и пример работы с ними на виртуальном сервере 1cloud</span>
+					<span itemprop="duration">T2M19S</span>
+					<link itemprop="url" href="https://www.youtube.com/watch?v=LHkQh4P0shI" />
+					<link itemprop="thumbnailUrl" href="https://www.youtube.com/watch?v=LHkQh4P0shI" />
+					<span itemprop="name">Как управлять групповыми политиками Active Directory (AD GPO)</span>
+					<span itemprop="uploadDate">2019-05-16</span>
+					<span itemprop="isFamilyFriendly">true</span>
+					<span itemprop="thumbnail" itemscope itemtype="https://schema.org/ImageObject">
+						<img itemprop="contentUrl" src="https://img.youtube.com/vi/LHkQh4P0shI/0.jpg" />
+						<span itemprop="width">640</span>
+						<span itemprop="height">360</span>
+					</span>
+				</div>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/LHkQh4P0shI" frameborder="0" allowfullscreen></iframe>
+			</div>
+		<div itemprop="articleBody">
+			<link href="https://drive.google.com/uc?export=view&amp;id=1l4zSCB7r7Qix6QdpjitZPTUb6kO4roER" rel="stylesheet" />
+<p>В статье описана краткая информация о групповых политиках Active Directory и пример управления групповыми политиками на Windows Server.</p>
+
+<h2>Что такое групповые политики и зачем они нужны?</h2>
+
+<p>Групповая политика - это инструмент, доступный для администраторов, работающих с архитектурой Active Directory. Он позволяет централизованно управлять настройками на клиентских компьютерах и серверах, подключенных к домену, а также обеспечивает простой способ распространения программного обеспечения.</p>
+
+<p>Групповые политики позволяют настраивать параметры для определенного набора пользователей или компьютеров внутри домена Active Directory. Также позволяют указать политики в одном месте для группы и применить к целевому набору пользователей.</p>
+
+<p>Например, можно обеспечить применение стандартного набора настроек и конфигураций для групп пользователей или компьютеров в домене или по запросу. Во всех компаниях как правило есть различные отделы, например отдел системных администраторов, разработчиков, дизайнеров, каждому из отдела необходим свой стандартный набор программного обеспечения, их рабочие компьютеры должны быть сконфигурированы под специальные задачи и нужды. С помощью групповых политик можно создать наборы настроек для конкретных групп пользователей в домене. С помощью администрирования Active Directory можно установить и управлять отдельными унифицированными наборами настроек, конкретно для дизайнеров или разработчиков.</p>
+
+<p>Конфигурации для компьютеров или пользователей проще и эффективнее, т.к. расположены в одном месте и не требуют повтора на каждом компьютере.</p>
+
+<h2>Компоненты GPO</h2>
+
+<p>Существует два компонента групповых политик - серверный компонент и клиентский, т.е. данная структура относится к архитектуре &ldquo;клиент-сервер&rdquo;.</p>
+
+<p>Серверный компонент - оснастка Microsoft Management Console (MMC), которая используется для указания настроек групповой политики. MMC может быть использована для создания политик для контроля и управления административными шаблонами и настройками безопасности (скрипты, установка ПО и прочее). Каждый из них называется расширением и в свою очередь каждый из них имеет дочернее расширение, которое разрешает добавление новых компонентов или обновление существующих без возможности затронуть или подвергнуть риску всю политику.</p>
+
+<p>Клиентский компонент интерпретирует и применяет настройки групповой политики для компьютеров пользователей или целевым пользователям. Клиентские расширения - это компоненты, которые запущены на пользовательской системе и несут ответственность за интерпретацию обработки и применения в объекты групповой политики.</p>
+
+<p>Для администрирования GPO используют Group Policy Management Console (GPMC) и Group Policy Management Editor.</p>
+
+<p>Сценарии использования Active Directory GPO:</p>
+
+<ul>
+	<li>Централизованная настройка пакета программ Microsoft Office.</li>
+	<li>Централизованная настройка управлением питанием компьютеров.</li>
+	<li>Настройка веб-браузеров и принтеров.</li>
+	<li>Установка и обновление ПО.</li>
+	<li>Применение определенных правил в зависимости от местоположения пользователя.</li>
+	<li>Централизованные настройки безопасности.</li>
+	<li>Перенаправление каталогов в пределах домена.</li>
+	<li>Настройка прав доступа к приложениям и системным программам.</li>
+</ul>
+
+<h2>Оснастка Управление групповыми политиками</h2>
+
+<p>Для управления групповыми политиками Microsoft предоставляет консоль управления групповыми политиками (GPMC)</p>
+
+<p>После установки роли <a href="/help/windows/active-directory-domain-services-ustanovka-i-nastrojka-windows-server" target="_blank">Active Directory Domain Service (AD DS) на контроллер домена</a> на сервере появится оснастка <b>Group Policy Management</b>. Для того, чтобы ее открыть нажмите комбинацию клавиш <i>Win+R</i> и в открывшемся окне введите:</p>
+<code>gpmc.msc</code>
+
+<p>Нажмите OK.</p>
+
+<p class="text-center"><img alt="Консоль" height="229" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/1.png" width="413" /></p>
+
+<p>Если оснастку не удается открыть, то возможно по определенным причинам она не установлена. Установить ее можно через стандартное меню <b>Add roles and features</b> в диспетчере сервера, выбрав компонент <b>Group Policy Management</b>.</p>
+
+<p class="text-center"><img alt="Features" height="560" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/2.png" width="786" /></p>
+
+<p>Оснастка выглядит следующим образом:</p>
+
+<p class="text-center"><img alt="Group Policy" height="530" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/3.png" width="754" /></p>
+
+<h2>Создание объектов групповой политики</h2>
+
+<p>Для настройка групповых политик на windows перейдите во вкладку <b>Forest</b> -&gt; <b>Domains</b> -&gt; <b>&lt;Ваш домен&gt;</b> -&gt; <b>Group Policy Objects</b>. С помощью правой кнопки мыши откройте меню и выберете <b>New</b>.</p>
+
+<p class="text-center"><img alt="Group Policy Objects" height="530" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/4.png" width="991" /></p>
+
+<p>В открывшемся окне в поле <b>Name</b> введите удобное для вас имя групповой политики.</p>
+
+<p class="text-center"><img alt="Name:" height="180" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/5.png" width="386" /></p>
+
+<p>После этого вы увидите созданный объект в списке.</p>
+
+<p class="text-center"><img alt="Group Policy" height="530" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/6.png" width="991" /></p>
+
+<p>Теперь необходимо настроить созданный объект под конкретные задачи. в качестве примера удалим ссылку <b>Games</b> из меню Start. Для это с помощью правой кнопки мыши откройте меню объекта и выберете пункт <b>Edit</b>.</p>
+
+<p class="text-center"><img alt="Edit" height="132" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/7.png" width="345" /></p>
+
+<p>В редакторе групповых политик перейдите по иерархии <b>User Configuration</b> -&gt; <b>Policies</b> -&gt; <b>Administrative Templates</b> -&gt; <b>Start Menu and Taskbar</b>. Найдите опцию <b>Remove Games link from Start Menu</b> и в контекстном меню выберете пункт <b>Edit</b>.</p>
+
+<p class="text-center"><img alt="Start Menu" height="565" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/8.png" width="787" /></p>
+
+<p>В открывшемся окне отметьте <b>Enable</b> для включения правила и при необходимости напишите комментарий. Нажмите <b>OK</b> для сохранения изменений.</p>
+
+<p class="text-center"><img alt="Remove" height="633" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/9.png" width="686" /></p>
+
+<p>На этом создание объекта групповой политики закончено.</p>
+
+<h2>Поиск объектов групповой политики</h2>
+
+<p>Как правило в корпоративных средах большое количество групповых политик, чтобы было проще найти нужный объект GPO, оснастка обладает встроенным поиском. Для этого выберете ваш лес и в контекстном меню кликните <b>Search</b>.</p>
+
+<p class="text-center"><img alt="Forest" height="530" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/10.png" width="991" /></p>
+
+<p>Открывшееся окно поиска интуитивно понятно для работы. В первую очередь выберете конкретный домен для поиска, также можно производить поиск во всех доменах сразу. Далее выберете нужный пункт поиска, задайте условие и значение. В примере ниже производился поиск объектов групповой политики, в которых встречается слово Default.</p>
+
+<p class="text-center"><img alt="Search" height="528" src="https://static.1cloud.ru/img/help/gruppovye-politiki-active-directory/11.png" width="554" /></p>
+
+<h2>Удаление объекта групповой политики</h2>
+
+<p>Если экземпляр GPO больше не нужен, его можно удалить. Откройте консоль управления Active Directory и выберете объект для удаления, затем с помощью правой кнопки мыши выберете опцию <b>Delete</b>.</p>
+
+<p><b>P. S. Другие инструкции:</b></p>
+
+<ul>
+	<li><a href="/help/windows/struktura-hranilischa-active-directory">Структура хранилища Active Directory</a></li>
+	<li><a href="/help/windows/active-directory-domain-services-ustanovka-i-nastrojka-windows-server">Создание контроллера домена Active Directory Domain Services</a></li>
+	<li><a href="/help/windows/instrukcija-po-dobavlenii-servera-v-sushhestvujushhij-domen-active-directory">Добавление сервера в существующий домен Active Directory</a></li>
+	<li><a href="/help/windows/ustanovka-i-nastrojka-dfs">Как настроить Distributed File System (DFS) и Replication в Active Directory</a></li>
+</ul>
+<!----------------------------Button_section------------------------------------>
+
+<hr color="grey" noshade="noshade" size="2px" />
+<p>Ознакомиться с другими инструкциями вы можете на нашем сайте. А чтобы попробовать услугу &mdash; кликните на кнопку ниже.</p>
+
+<div class="button_center"><a class="btn btn-primary btn-block" href="https://auth.1cloud.ru/register?utm_source=1cloud&amp;utm_medium=button&amp;utm_campaign=help&amp;utm_content=gruppovye-politiki-active-directory" title="Попробовать услугу">Попробовать услугу</a></div>
+		</div>
+
+
+		<div class="form-group">
+<div class="oc-share">
+	<em>Поделиться в соцсетях: </em>
+	<div id="onecloud-share"></div>
+</div>
+<script src="https://yastatic.net/share2/share.js"></script>
+<script>
+	(function initShareBlock() {
+		var shareBlock = document.getElementById('onecloud-share');
+		var share = Ya.share2(shareBlock, {
+			theme: {
+				services: 'vkontakte,twitter,telegram',
+				counter: false,
+				lang: 'ru',
+				size: 'm',
+				bare: false
+			}
+		});
+	})();
+</script>		</div>
+
+		<hr />
+
+		<div class="rating__block">
+			<span class="rating rating-block-width"></span>
+			<span class="rating__text" id="rating-average">Средняя оценка: <strong>4,9</strong>, всего оценок: <span>28</span></span>
+			<span class="rating__text form-message bg-info hidden" id="rating-success">Спасибо за Вашу оценку!</span>
+			<span class="rating__text form-message bg-danger hidden" id="rating-error">К сожалению, проголосовать не получилось. Попробуйте позже</span>
+			<meta itemprop="bestRating" content="5">
+		</div>
+
+		<span itemprop="inLanguage" class="hidden">ru</span>
+		<div itemprop="author" class="hidden" itemscope itemtype="https://schema.org/Organization">
+			<div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+				<span itemprop="postalCode">191014</span>
+				<span itemprop="addressLocality">Санкт-Петербург</span>
+				<span itemprop="streetAddress">ул. Кирочная, 9</span>
+			</div>
+			<a itemprop="telephone" href="tel:+78123138833">+7(812)313-88-33</a>
+			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+				<img src="https://1cloud.ru/img/logo.png" />
+				<link itemprop="url" href="https://1cloud.ru/img/logo.png" />
+				<span itemprop="width">235</span>
+				<span itemprop="height">70</span>
+			</div>
+			<span itemprop="name">1cloud ltd</span>
+		</div>
+		<span itemprop="datePublished" class="hidden">2023-05-27</span>
+		<span itemprop="headline" class="hidden">Управление групповыми политиками Active Directory (AD GPO) на Windows Server</span>
+		<div itemprop="publisher" class="hidden" itemscope itemtype="https://schema.org/Organization">
+			<div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+				<span itemprop="postalCode">191014</span>
+				<span itemprop="addressLocality">Санкт-Петербург</span>
+				<span itemprop="streetAddress">ул. Кирочная, 9</span>
+			</div>
+			<a itemprop="telephone" href="tel:+78123138833">+7(812)313-88-33</a>
+			<div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+				<img src="/img/logo.png" />
+				<link itemprop="url" href="/img/logo.png" />
+				<span itemprop="width">235</span>
+				<span itemprop="height">70</span>
+			</div>
+			<span itemprop="name">1cloud ltd</span>
+		</div>
+
+		<span itemprop="dateModified" class="hidden">2023-05-27</span>
+		<a itemprop="mainEntityOfPage" href="/help/windows/gruppovye-politiki-active-directory" class="hidden">Управление групповыми политиками Active Directory (AD GPO) на Windows Server</a>
+		<div itemprop="image" class="hidden" itemscope itemtype="https://schema.org/ImageObject">
+			<img src="/img/logo.png" />
+			<link itemprop="url" href="/img/logo.png" />
+			<span itemprop="width">600</span>
+			<span itemprop="height">auto</span>
+		</div>
+	</div>
+</div>
+
+<footer class="content__footer">
+    <div class="row">
+        <div class="blog col-xs-12">
+            <span class="blog__meta">
+                <span class="blog__meta-item blog__meta-item--update">Последнее обновление: 27.05.2023</span>
+            </span>
+        </div>
+        
+<div class="pages col-xs-12 col-sm-6">
+    <nav class="pages-nav">
+            <a href="/help/windows/nastrojka-remote-desktop-gateway" class="pages-nav__prev" title="Как настроить Remote Desktop Gateway">Как настроить Remote Desktop Gateway</a>
+            <a href="/help/windows/ustanovka-i-nastrojka-dfs" class="pages-nav__next" title="Как настроить Distributed File System (DFS) и Replication в Active Directory">Как настроить Distributed File System (DFS) и Replication в Active Directory</a>
+    </nav>
+</div>
+    </div>
+</footer>
+                    </main>
+                    
+<aside class="sidebar col-xs-12 col-md-3" itemscope itemtype="https://schema.org/WPSideBar">
+    <nav class="sidebar__menu">
+        <ul>
+                        <li><a href="/help" itemprop="url">FAQ</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/monitoring_system_helps" itemprop="url">Материалы по системам мониторинга</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/monitoring_system_helps/grafana_ubuntu_18_install">Установка Grafana на Ubuntu 18/20</a></li>
+                                <li><a href="/help/monitoring_system_helps/receive_alerts_in_telegram">Получение алертов от AlertManager в Telegram</a></li>
+                                <li><a href="/help/monitoring_system_helps/node_export_install_ubuntu_18">Установка node exporter на Ubuntu 18/20</a></li>
+                                <li><a href="/help/monitoring_system_helps/alertmanager_install_ubuntu_18">Установка AlertManager на Ubuntu 18</a></li>
+                                <li><a href="/help/monitoring_system_helps/prometheus_install_on_ubuntu">Установка и настройка Prometheus на Ubuntu 18</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/terraform_manuals" itemprop="url">Материалы по Terraform</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/terraform_manuals/vcd_install">Установка vcd провайдера на Terraform</a></li>
+                                <li><a href="/help/terraform_manuals/go_ubuntu_install">Установка GoLang на Ubuntu 18-20</a></li>
+                                <li><a href="/help/terraform_manuals/terraform_install_ubuntu">Установка Terraform на Ubuntu 18-20</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/vpn_manuals" itemprop="url">Работа с VPN</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/vpn_manuals/outline_vpn_manual">Outline — Open source VPN c GUI</a></li>
+                                <li><a href="/help/vpn_manuals/wireguard_vpn_on_vps">Установка Wireguard VPN на VPS</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/docker" itemprop="url">Материалы по Docker</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/docker/5_docker_tricks">5 приемов оптимизации сборки Docker-образов</a></li>
+                                <li><a href="/help/docker/manual_yaml">Краткий мануал по YAML</a></li>
+                                <li><a href="/help/docker/docker_container">Команды Docker по работе с контейнерами</a></li>
+                                <li><a href="/help/docker/docker_image_work">Команды Docker для работы с образами</a></li>
+                                <li><a href="/help/docker/dockerfile_work">Работа с Dockerfile</a></li>
+                                <li><a href="/help/docker/docker_install_ubuntu_18">Установка Docker на Ubuntu 18 и 20</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/disk1cloud" itemprop="url">Диск 1cloud</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/disk1cloud/1cloud_disk_admin_tools_tom">Блок административных инструментов</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_category_tom">Блок категорийных разделов</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_main_tom">Блок основных разделов</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_interface">Интерфейс Диска 1cloud</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_first_time_sign_in">Первый вход на Диск 1cloud</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_change_limit">Изменение квот диска и его удаление</a></li>
+                                <li><a href="/help/disk1cloud/1cloud_disk_admin_password_create">Установка пароля администратора Диска</a></li>
+                                <li><a href="/help/disk1cloud/create_1cloud_disk">Создание Диска 1cloud</a></li>
+                                <li><a href="/help/disk1cloud/about_1cloud_disk">О Диске 1cloud</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/open_source_vps_vds" itemprop="url">VPS/VDS на базе Open Source</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/open_source_vps_vds/easy_connect_vps">Как быстро подключиться к виртуальным серверам 1cloud по SSH</a></li>
+                                <li><a href="/help/open_source_vps_vds/manage-vps-vds">Управление сервером VPS/VDS</a></li>
+                                <li><a href="/help/open_source_vps_vds/create-vps-vds">Создание сервера VPS/VDS</a></li>
+                                <li><a href="/help/open_source_vps_vds/what-is-vps-vds-open-source">Что такое VPS/VDS на базе Open Source?</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/ddos_protection" itemprop="url">Защита от DDoS атак</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/ddos_protection/podmena-a-zapisi">Инструкция о подмене А-записи</a></li>
+                                <li><a href="/help/ddos_protection/understanding-ddos-protection">Общие сведения об услуге Anti-DDoS Qrator</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/publiccloud" itemprop="url">Виртуальный ЦОД и Cloud Director</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/publiccloud/about_cloud_director">Общая информация по работе в VMware Cloud Director</a></li>
+                                <li><a href="/help/publiccloud/vdc_vm_app_routed_connect">Подключение VM и vAPP к маршрутизируемой сети</a></li>
+                                <li><a href="/help/publiccloud/vdc_create_routed_web">Создание и настройка маршрутизируемой сети</a></li>
+                                <li><a href="/help/publiccloud/vdc_test_connect_vm_to_isolate_web">Проверка подключения VM к изолированной сети</a></li>
+                                <li><a href="/help/publiccloud/vdc_connect_vm_vapp_to_isolated_web">Подключение VM и vAPP к изолированной сети</a></li>
+                                <li><a href="/help/publiccloud/vdc_isolated_network_create">Создание и настройка изолированной сети</a></li>
+                                <li><a href="/help/publiccloud/vdc_vapp_tuning">Настройка контейнера vAPP</a></li>
+                                <li><a href="/help/publiccloud/vdc_vapp_actions">Управление контейнером vAPP</a></li>
+                                <li><a href="/help/publiccloud/vdc_vapp_create">Создание контейнера vAPP</a></li>
+                                <li><a href="/help/publiccloud/vdc_vapp_about">Что такое контейнеры vAPP?</a></li>
+                                <li><a href="/help/publiccloud/vdc_vm_tuning">Настройка виртуальной машины</a></li>
+                                <li><a href="/help/publiccloud/vdc_vm_setup">Управление виртуальной машиной</a></li>
+                                <li><a href="/help/publiccloud/vdc_vm_create">Создание виртуальной машины</a></li>
+                                <li><a href="/help/publiccloud/vdc-vmware-vm">Что такое виртуальная машина?</a></li>
+                                <li><a href="/help/publiccloud/vdc_interface">Интерфейс виртуального ЦОДа</a></li>
+                                <li><a href="/help/publiccloud/what-is-public-cloud">Что такое Виртуальный ЦОД?</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/projects" itemprop="url">Проекты</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/projects/upravlenie-rolyami-uchastnikov-proekta">Управление ролями участников проекта</a></li>
+                                <li><a href="/help/projects/udalenie-proekta-v-paneli-upravleniya">Удаление проекта</a></li>
+                                <li><a href="/help/projects/sozdanie-proektov-v-paneli-upravleniya">Создание проекта</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/security" itemprop="url">Безопасность</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/security/prosmotr-i-upravlenie-protsessami-linux-s-pomoshhyu-top">Просмотр и управление процессами Linux с помощью top</a></li>
+                                <li><a href="/help/security/ispolzovanie-komandy-ps-dlya-prosmotra-protsessov-linux">Использование команды ps для просмотра процессов Linux</a></li>
+                                <li><a href="/help/security/ispolzovanie-firewalld-na-centos">Использование FirewallD на CentOS</a></li>
+                                <li><a href="/help/security/upravlenie-brandmauerom-centos-system-config-firewall">Управление брандмауэром CentOS с помощью system-config-firewall</a></li>
+                                <li><a href="/help/security/ustanovka-firestarter-na-linux">Установка Firestarter на Linux</a></li>
+                                <li><a href="/help/security/firewall-nastrojka-seti">Firewall: настройка межсетевого экрана сети в панели управления 1cloud</a></li>
+                                <li><a href="/help/security/firewall-nastrojka-servera">Firewall: настройка межсетевого экрана сервера в панели управления 1cloud</a></li>
+                                <li><a href="/help/security/ispolzovanie-utility-ufw-na-inux">Использование утилиты UFW на Linux</a></li>
+                                <li><a href="/help/security/audit-processov-linux-c-pomoshju-autrace">Аудит процессов Linux с помощью утилиты Autrace</a></li>
+                                <li><a href="/help/security/audit-linux-c-pomoshju-auditd">Настройка и аудит системы Linux с помощью демона Auditd</a></li>
+                                <li><a href="/help/security/nastroika-tripwire-dlya-proverki-tselosnosti-failov">Установка и настройка tripwire для проверки целостности файлов</a></li>
+                                <li><a href="/help/security/nastroika-sistemy-veracrypt">Шифрование операционной системы Windows с помощью VeraCrypt</a></li>
+                                <li><a href="/help/security/nastroika-diska-veracrypt">Настройка шифрования диска с данными на Windows с помощью VeraCrypt</a></li>
+                                <li><a href="/help/security/sozdanie-shifrovannogo-razdela-luks-na-linux">Создание шифрованного LUKS раздела на Linux</a></li>
+                                <li><a href="/help/security/ispolzovanie-iptables-na-linux">Использование утилиты iptables на Linux</a></li>
+                                <li><a href="/help/security/ustanovka-prilozhenija-authy">Как установить и использовать приложение Authy</a></li>
+                                <li><a href="/help/security/ustanovka-prilozhenija-google-authenticator">Как установить и использовать приложение Google Authenticator</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/getting-started" itemprop="url">Работа с серверами 1cloud</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/getting-started/buy_server_in_kazakhstan">Как заказать сервер в Казахстане?</a></li>
+                                <li><a href="/help/getting-started/vps_create">Создание VPS от 1cloud</a></li>
+                                <li><a href="/help/getting-started/izmerenie-proizvoditelnosti">Измерение производительности дисковой подсистемы</a></li>
+                                <li><a href="/help/getting-started/zakaz_pervogo_servera_1cloud">Заказ виртуального сервера от 1cloud</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/billing" itemprop="url">Тарификация и биллинг</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/billing/electronic_document_management">Как подключить электронный документооборот?</a></li>
+                                <li><a href="/help/billing/how%20to%20change%20payer">Как сменить плательщика или юрлицо</a></li>
+                                <li><a href="/help/billing/how_to_pay_by_no_russian_bank">Как оплатить картой иностранного банка услуги облачного провайдера</a></li>
+                                <li><a href="/help/billing/kak-podkluchit-avtoplateg">Как включить автоплатеж</a></li>
+                                <li><a href="/help/billing/promocode_activation">Как активировать промокод</a></li>
+                                <li><a href="/help/billing/test-period">Как бесплатно протестировать виртуальный сервер</a></li>
+                                <li><a href="/help/billing/tarifikacija_billing">Тарификация и биллинг</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/windows" itemprop="url">Вопросы по Windows</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/windows/usb_rdp">Как пробросить USB на VM по RDP</a></li>
+                                <li><a href="/help/windows/automatic_reboot_windows_server">Настройка автоматической перезагрузки Windows Server</a></li>
+                                <li><a href="/help/windows/rdp_macos">Как подключиться к серверу по RDP на macOS</a></li>
+                                <li><a href="/help/windows/win_2016_ie_security_off">Отключение безопасности Internet Explorer в Windows Server 2016</a></li>
+                                <li><a href="/help/windows/ws2019_psql_remote_coonect">Настройка удаленного подключения к PostgreSQL на Windows Server 2019</a></li>
+                                <li><a href="/help/windows/ws2019_psql_install">Установка PostgreSQL на Windows Server 2019</a></li>
+                                <li><a href="/help/windows/ws2019_create_rdp_file">Создание RDP-файла для гостевого подключения к Windows Server 2019</a></li>
+                                <li><a href="/help/windows/ws2019_user_create">Создание пользователя в Windows Server 2019</a></li>
+                                <li><a href="/help/windows/vm_ws2019_create">Создание сервера под управлением Windows Server 2019</a></li>
+                                <li><a href="/help/windows/ws2019vs2016">Отличия Windows Server 2019 от Windows Server 2016</a></li>
+                                <li><a href="/help/windows/ustanovka-ruby-on-rails-na-windows-server">Установка Ruby On Rails на Windows Server</a></li>
+                                <li><a href="/help/windows/ustanovka-postgresql-na-windows-server">Установка PostgreSQL на Windows Server</a></li>
+                                <li><a href="/help/windows/ustanovka-neo4j-na-windows">Установка Neo4j на Windows</a></li>
+                                <li><a href="/help/windows/zapusk-resilio-sync-kak-sluzhbu-windows">Запуск Resilio Sync как службу Windows</a></li>
+                                <li><a href="/help/windows/ustanovka-yazyka-go-na-windows-server">Установка языка Go на Windows Server</a></li>
+                                <li><a href="/help/windows/ustanovka-yazyka-r-na-windows-server">Установка языка R на Windows Server</a></li>
+                                <li><a href="/help/windows/ustanovka-subd-cassandra-na-windows-server">Установка СУБД Cassandra на Windows Server</a></li>
+                                <li><a href="/help/windows/upravlenie-lokalnymi-gruppovymi-politikami">Управление локальными групповыми политиками</a></li>
+                                <li><a href="/help/windows/ustanovka-seafile-na-windows">Установка облачного хранилища Seafile на Windows</a></li>
+                                <li><a href="/help/windows/nastrojka-remote-desktop-gateway">Как настроить Remote Desktop Gateway</a></li>
+                                <li><a href="/help/windows/gruppovye-politiki-active-directory">Управление групповыми политиками Active Directory (AD GPO) на Windows Server</a></li>
+                                <li><a href="/help/windows/ustanovka-i-nastrojka-dfs">Как настроить Distributed File System (DFS) и Replication в Active Directory</a></li>
+                                <li><a href="/help/windows/rezervnoe-kopirovanie-windows-utilita-dd">Резервное копирование Windows с помощью утилиты dd</a></li>
+                                <li><a href="/help/windows/nastrojka-limitov-rdp-sessij">Настройка таймаутов RDP-сессий на сервере Windows</a></li>
+                                <li><a href="/help/windows/windows-server-2008-update-kb4088875-kb4088878-problema-ip">Отвалились настройки сети в Windows Server 2008 после обновления windows kb4088875\kb4088878. Что делать?</a></li>
+                                <li><a href="/help/windows/instrukcija-po-dobavlenii-servera-v-sushhestvujushhij-domen-active-directory">Добавление сервера в существующий домен Active Directory</a></li>
+                                <li><a href="/help/windows/active-directory-domain-services-ustanovka-i-nastrojka-windows-server">Создание контроллера домена Active Directory Domain Services</a></li>
+                                <li><a href="/help/windows/kak-sozdat-polzovatelya-v-windows-server-2016">Создание пользователя в Windows Server 2016</a></li>
+                                <li><a href="/help/windows/sozdanie-rezervnoj-kopii-pri-pomoshchi-windows-server-backup">Создание резервной копии при помощи Windows Server Backup</a></li>
+                                <li><a href="/help/windows/kak-nastroit-planirovshchik-zadach-windows">Настройка планировщика для Windows</a></li>
+                                <li><a href="/help/windows/struktura-hranilischa-active-directory">Структура хранилища Active Directory</a></li>
+                                <li><a href="/help/windows/sistemy-kontrolya-versij-git-v-windows">Установка и использование системы контроля версий Git в Windows</a></li>
+                                <li><a href="/help/windows/nastroyka-ftp-na-windows-server-2016">Настройка FTP-сервера на Windows Server 2016</a></li>
+                                <li><a href="/help/windows/podbor-konfiguraci-1c">Подбор конфигурации сервера 1C</a></li>
+                                <li><a href="/help/windows/php-mysql-na-iis">Установка и настройка PHP и MySQL на IIS сервер</a></li>
+                                <li><a href="/help/windows/kak_podkljuchitsja_k_windows_serveru">Как подключиться к Windows серверу</a></li>
+                                <li><a href="/help/windows/nastroika-dinamicheskih-parametrov-ogranicheniy-ip-iis8-v-windows-server-2012">Настройка динамических параметров ограничений IP IIS 8 в Windows Server 2012</a></li>
+                                <li><a href="/help/windows/setup_openvpnserver_win">Настройка OpenVPN-сервера на Windows Server 2008/2012</a></li>
+                                <li><a href="/help/windows/netcat-na-windows">Установка NetCat на Windows</a></li>
+                                <li><a href="/help/windows/problemy_pri_podkljuchenii_po_rdp">Проблемы при подключении по RDP</a></li>
+                                <li><a href="/help/windows/winactivation">Активация лицензии Windows</a></li>
+                                <li><a href="/help/windows/ustanovka-mongodb-na-server-s-windows">Установка MongoDB на сервер с  Windows</a></li>
+                                <li><a href="/help/windows/ustanovka-novogo-porta-rdp-po-umolchaniju-v-windows-server-2012">Установка нового порта RDP по умолчанию в Windows Server 2012</a></li>
+                                <li><a href="/help/windows/perenos_fajlov_na_vds_s_lokalnogo_kompjutera">Перенос файлов на VDS с локального компьютера</a></li>
+                                <li><a href="/help/windows/rdp-sessija_problemy_s_buferom_obmena">RDP-сессия: проблемы с буфером обмена</a></li>
+                                <li><a href="/help/windows/izmenenie_parolja_v_rdp-sessii_windows_server_2008_2012">Изменение пароля в RDP-сессии Windows Server 2008, 2012</a></li>
+                                <li><a href="/help/windows/kak_otkljuchit_konfiguraciju_usilennoj_bezopasnosti_internet_explorer_windows_server_2012">Как отключить Конфигурацию усиленной безопасности Internet Explorer в Windows Server 2012</a></li>
+                                <li><a href="/help/windows/ne_rabotaet_zvuk_cherez_rdp">Не работает звук через RDP</a></li>
+                                <li><a href="/help/windows/oshibka-inicializacii-diska">Сбой инициализации диска на Windows Server 2008</a></li>
+                                <li><a href="/help/windows/sinhronizacija-cherez-bittorrent-resilio-sync">Обзор программы Resilio (BitTorrent) Sync</a></li>
+                                <li><a href="/help/windows/nastrojka_setevogo_adaptera_windows">Настройка сетевого адаптера в Windows</a></li>
+                                <li><a href="/help/windows/windows_server_2008_sozdanie_novogo_polzovatelja">Windows Server 2008: создание нового пользователя</a></li>
+                                <li><a href="/help/windows/brandmaujer_windows_server_dobavlenie_pravila">Брандмауэр: добавление правила</a></li>
+                                <li><a href="/help/windows/nastrojka_probrosa_printera_cherez_rdp">Настройка проброса принтера через RDP</a></li>
+                                <li><a href="/help/windows/izmenenie_razmera_okna_rdp_windows_server_2012">Изменение размера окна удалённого рабочего стола в Windows Server 2012</a></li>
+                                <li><a href="/help/windows/ping_windows_server_2012_ne_prohodit">Ping Windows Server 2012 не проходит</a></li>
+                                <li><a href="/help/windows/problemy_otobrazhenii_web_konsoli">Проблемы при отображении Web консоли через VMware Plugin</a></li>
+                                <li><a href="/help/windows/dobavlenie_diskovogo_prostranstva_windows_server_2012_r2">Добавление дискового пространства после расширения на Windows Server 2012/16</a></li>
+                                <li><a href="/help/windows/dobavlenie_diskovogo_prostranstva_windows_server_2008_r2">Добавление дискового пространства после расширения на Windows Server 2008 R2</a></li>
+                                <li><a href="/help/windows/windowssecurity">Рекомендации по обеспечению безопасности Windows Server 2008/2012</a></li>
+                                <li><a href="/help/windows/nastroika-ftp-servera-v-windows-server-2012">Настройка FTP-сервера в Windows Server 2012</a></li>
+                                <li><a href="/help/windows/ustanovka-i-nastrojka-smtp-na-windovs-server">SMTP сервер на Windows: настройка и установка</a></li>
+                                <li><a href="/help/windows/ustanovka-java-dlja-windows">Установка Java для Windows</a></li>
+                                <li><a href="/help/windows/ustanovka-nastroika-wampserver">Настройка Apache, PHP, MySQL на WampServer</a></li>
+                                <li><a href="/help/windows/oshibka-ustanovki-net-framework-na-windows-server">Инструкция по установке .net framework</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/linux" itemprop="url">Вопросы по Linux</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/linux/resize_rocky_8">Увеличение дискового пространства в Rocky Linux 8</a></li>
+                                <li><a href="/help/linux/resize_ubuntu20">Увеличение дискового пространства в Ubuntu 20</a></li>
+                                <li><a href="/help/linux/resize_debian11">Увеличение дискового пространства в Debian 11</a></li>
+                                <li><a href="/help/linux/change_ip_in_ubuntu_20">Замена IP в Ubuntu 20.04 с помощью net-tools</a></li>
+                                <li><a href="/help/linux/vim_help">Vim: рабочие режимы, хоткейсы и команды</a></li>
+                                <li><a href="/help/linux/tree_help">Tree — древовидное отображение директорий Linux</a></li>
+                                <li><a href="/help/linux/tmux_help">Шпаргалка по Tmux: установка, настройка, работа.</a></li>
+                                <li><a href="/help/linux/hot_keys_linux">Горячие клавиши для работы в терминале Linux</a></li>
+                                <li><a href="/help/linux/centos8vscentos7">Отличия CentOs 8 от CentOs 7</a></li>
+                                <li><a href="/help/linux/debian_10_features">Изменения в Debian 10 «Buster»</a></li>
+                                <li><a href="/help/linux/ubuntu20_04vs19_04">Отличия Ubuntu 20.04 от Ubuntu 19.04</a></li>
+                                <li><a href="/help/linux/ustanovka-django-s-postgresql-nginx-i-gunicorn-na-ubuntu-18-04">Установка Django с PostgreSQL, Nginx и Gunicorn на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-ruby-on-rails-na-ubuntu-18-04">Установка фреймворка Ruby on Rails на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-jupyter-notebook-na-ubuntu-18-04">Установка Jupyter Notebook с помощью Python 3 на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-neo4j-na-ubuntu-debian">Установка Neo4j на Ubuntu/Debian</a></li>
+                                <li><a href="/help/linux/ustanovka-i-ispolzovanie-paneli-vesta">Установка и использование панели Vesta</a></li>
+                                <li><a href="/help/linux/ustanovka-i-ispolzovanie-paneli-brainycp">Установка и использование панели BrainyCP</a></li>
+                                <li><a href="/help/linux/ustanovka-postgresql-na-ubuntu-18-04">Установка PostgreSQL на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-yazyka-go-na-ubuntu-18-04">Установка языка Go на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-orientdb-na-ubuntu-16-04">Установка и настройка OrientDB на Ubuntu 16.04</a></li>
+                                <li><a href="/help/linux/ustanovka-r-na-ubuntu-18-04">Установка R на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-i-zashhita-redis-na-ubuntu">Установка и защита Redis на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-i-nastroika-nagios-na-centos">Установка и настройка Nagios на CentOS</a></li>
+                                <li><a href="/help/linux/ustanovka-i-nastroika-bookstack-na-ubuntu">Установка и настройка BookStack на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-subd-cassandra-na-linux">Установка СУБД Cassandra на Linux</a></li>
+                                <li><a href="/help/linux/ustanovka-webmin-dlya-upravleniya-linux">Установка Webmin для управления Linux</a></li>
+                                <li><a href="/help/linux/ustanovka-apache-kafka-na-ubuntu">Установка Apache Kafka на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/ustanovka-i-nastroika-nagios-na-ubuntu">Установка и настройка Nagios на Ubuntu</a></li>
+                                <li><a href="/help/linux/ustanovka-nextcloud-na-linux">Установка облачного хранилища NextCloud на Linux</a></li>
+                                <li><a href="/help/linux/ustanovka-owncloud-na-linux">Установка облачного хранилища ownCloud на Linux</a></li>
+                                <li><a href="/help/linux/ustanovka-seafile-na-linux">Установка облачного хранилища Seafile на Linux</a></li>
+                                <li><a href="/help/linux/nastrojka-setevogo-adaptera-na-ubuntu-18-04">Настройка сетевого адаптера на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/uvelichenie-diskovogo-prostranstva-ubuntu-18">Увеличение дискового пространства на Ubuntu 18.04</a></li>
+                                <li><a href="/help/linux/instruktsiya-docker-na-centos7">Установка и использование Docker на Centos 7</a></li>
+                                <li><a href="/help/linux/nastrojka-prav-polzovatelej-na-ubuntu">Разграничение прав пользователей в Ubuntu</a></li>
+                                <li><a href="/help/linux/nastrojka-exim4">Настройка EXIM4 для отправки почтовых сообщений в Linux</a></li>
+                                <li><a href="/help/linux/rezervnoe-kopirovanie-serverov-linux">Резервное копирование Linux серверов встроенными средствами</a></li>
+                                <li><a href="/help/linux/kak-s-pomoshchyu-cfdisk-rasshirit-diskovoe-prostranstvo">Использование cfdisk в Linux для расширения дискового пространства</a></li>
+                                <li><a href="/help/linux/kak-nastroit-planirovshchik-cron-na-crontab-linux">Настройка планировщика Cron в Linux</a></li>
+                                <li><a href="/help/linux/upravlenie-logami-s-pomoshch%27yu-logrotate-na-ubuntu-16-04">Управление логами с помощью Logrotate на Ubuntu 16.04</a></li>
+                                <li><a href="/help/linux/kak-ustanovit-fajlovye-menedzhery-dlya-linux">Файловые менеджеры для ОС Linux</a></li>
+                                <li><a href="/help/linux/kak-ustanovit-i-nastroit-svyazki-grafana">Установка и настройка связки Grafana, Graphite, Carbon, Collectd на Debian и Ubuntu</a></li>
+                                <li><a href="/help/linux/htb-hierarchical-token-bucket-dlya-upravleniya-trafikom">Настройка дисциплины обслуживания трафика HTB (Hierarchical Token Bucket) на Linux</a></li>
+                                <li><a href="/help/linux/ustanovka-lemp-steka-linux-nginx-mysql-php">Установка LEMP стека (Linux, Nginx, MySQL, PHP) на Ubuntu 16.04</a></li>
+                                <li><a href="/help/linux/nastrojka-obsluzhivaniya-tbf">Настройка дисциплины обслуживания трафика TBF в Linux</a></li>
+                                <li><a href="/help/linux/uvelichenie-diskovogo-prostranstva-bitrix-7-na-centos-7">Увеличение дискового пространства в Bitrix 7 на Centos 7</a></li>
+                                <li><a href="/help/linux/uvelichenie-diskovogo-prostranstva-vyos">Увеличение дискового пространства в VyOS</a></li>
+                                <li><a href="/help/linux/podkuchenie-vyos-k-chastnoi-seti">Как подключить VyOS сервер к частной сети</a></li>
+                                <li><a href="/help/linux/kak_ustanovit_lamp_stek_linux_apache_mysql_php_ubuntu">Как установить LAMP-стек (Linux, Apache, MySqL, PHP) на сервере с Ubuntu</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_ubuntu_14">Увеличение дискового пространства в Ubuntu 14</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_debian_9">Увеличение дискового пространства в Debian 9</a></li>
+                                <li><a href="/help/linux/ispmanagerinstall">Установка ISPmanager 5 Lite/Business на Linux-сервер</a></li>
+                                <li><a href="/help/linux/mysql-na-linux">Установка и настройка MySQL на Linux</a></li>
+                                <li><a href="/help/linux/kak-ustanovit-i-nastroit-openvpn-na-centos7">Установка и настройка OpenVPN на сервере под управлением CentOS 7</a></li>
+                                <li><a href="/help/linux/udev-i-nastrojka-parametrov-setevyh-interfejsov">Переименование сетевых интерфейсов при помощи udev-правил</a></li>
+                                <li><a href="/help/linux/ustanovka-open-vm-tools">Установка Open-VM-Tools</a></li>
+                                <li><a href="/help/linux/generacija-kljuchej-ssh">Генерация SSH-ключа для авторизации на сервере</a></li>
+                                <li><a href="/help/linux/podkljuchenie-ssh-linux">Доступ к Linux-серверам через SSH-ключи</a></li>
+                                <li><a href="/help/linux/ustanovka-lamp-na-centos">Установка и настройка LAMP-стека на Centos 7</a></li>
+                                <li><a href="/help/linux/natrojka_setevogo_adaptera_centos">Настройка сетевого адаптера в CentOS</a></li>
+                                <li><a href="/help/linux/kak-ustanovit-lemp-stek-na-centos-6">Как установить LEMP-стек (Linux, nginx, MySQL, PHP) на CentOS 6</a></li>
+                                <li><a href="/help/linux/montirovanie-diska-v-linux">Добавление диска и создание разделов в Linux</a></li>
+                                <li><a href="/help/linux/rasshirenie-diska-bitrix">Инструкция для расширения диска Bitrix</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_ubuntu_16">Увеличение дискового пространства в Ubuntu 16.04</a></li>
+                                <li><a href="/help/linux/openvpnserver_debian7_ubuntu12">Настройка OpenVPN-сервера с туннелированием интернет-трафика на Ubuntu 12.04 / Debian 7</a></li>
+                                <li><a href="/help/linux/linux_security_basics">Базовая настройка безопасности Linux-систем</a></li>
+                                <li><a href="/help/linux/kak-izmenit-parol-administratora-v-linux">Как изменить пароль администратора в Linux</a></li>
+                                <li><a href="/help/linux/kak-ustanovit-lemp-stack-na-ubuntu-14_04">Как установить LEMP-стек (Linux, nginx, MySQL, PHP) на Ubuntu 14.04 LTS</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_debian_8">Увеличение дискового пространства в Debian 8</a></li>
+                                <li><a href="/help/linux/natrojka_setevogo_adaptera_ubuntu">Настройка сетевого адаптера в Ubuntu, Debian</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_centos_65">Увеличение дискового пространства в Centos 6</a></li>
+                                <li><a href="/help/linux/kak_uznat_kakoj_komponent_ispolzuet_tcp_port_80">Как узнать, какой компонент использует TCP-порт 80</a></li>
+                                <li><a href="/help/linux/kak_podkljuchitsja_k_linux_serveru">Как подключиться к Linux серверу</a></li>
+                                <li><a href="/help/linux/ustanovka-gitlab-na-ubuntu">Как установить и настроить сервер GitLab на Ubuntu</a></li>
+                                <li><a href="/help/linux/xfce4-i-vnc-dlja-ubuntu">VNC для удаленного доступа к Ubuntu c оболочкой xfce4</a></li>
+                                <li><a href="/help/linux/ustanovka-java-na-ubuntu">Установка Java на Ubuntu 16.04</a></li>
+                                <li><a href="/help/linux/postfix-dovecot-na-ubuntu">Пошаговая инструкция установки Postfix и Dovecot на Ubuntu</a></li>
+                                <li><a href="/help/linux/vnc-i-gnome-dlja-ubuntu">VNC для удаленного доступа к Ubuntu c оболочкой Gnome</a></li>
+                                <li><a href="/help/linux/ustanovka-mingodb-na-debian">Установка MongoDB на Debian</a></li>
+                                <li><a href="/help/linux/ustanovka-mongodb-na-ubuntu">Установка MongoDB на Ubuntu</a></li>
+                                <li><a href="/help/linux/nastrojka_linus-firewall_iptables">Настройка iptables Linux Firewall: руководство для начинающих</a></li>
+                                <li><a href="/help/linux/kak_ustanovit_i_nastroit_phpmyadmin_na_ubuntu_12_04">Как установить и настроить phpMyAdmin на Ubuntu 12.04</a></li>
+                                <li><a href="/help/linux/kak-nastroit-vsftpd-ubuntu-12">Как настроить vsftpd на Ubuntu</a></li>
+                                <li><a href="/help/linux/sozdanie_ssl_sertifikata_dlja_apache_ubuntu">Создание SSL-сертификата для Apache на Ubuntu 12.04</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_centos_7">Увеличение дискового пространства в CentOS 7</a></li>
+                                <li><a href="/help/linux/kak_ustanovit_wordpress_na_ubuntu_12">Как установить WordPress на Ubuntu 12.04</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_debian_7">Увеличение дискового пространства в Debian 7</a></li>
+                                <li><a href="/help/linux/linux_vyvod_vseh_vstroennyh_komand">Вывод всех встроенных команд</a></li>
+                                <li><a href="/help/linux/linux_zapusk_komand_fonovom_rezhime">Запуск команд в фоновом режиме</a></li>
+                                <li><a href="/help/linux/uvelichenie_diskovogo_prostranstva_ubuntu_12">Увеличение дискового пространства в Ubuntu 12</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/bsd" itemprop="url">Вопросы по BSD</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/bsd/freebsd_11_features">Нововведения во FreeBSD 11</a></li>
+                                <li><a href="/help/bsd/nastroyka-proksi-servera-pfsense">Настройка прокси сервера на PfSense</a></li>
+                                <li><a href="/help/bsd/raspisanie-pravil-v-pfsense">Создание расписания для правил в PfSense 2.3</a></li>
+                                <li><a href="/help/bsd/otkrit-port-v-pfsense">Как открыть порт в PFSense</a></li>
+                                <li><a href="/help/bsd/nastroika-interfeisa-pfsense">Как настроить интерфейс PfSense</a></li>
+                                <li><a href="/help/bsd/ustanovka-famp-stack-freebsd">Установка FAMP Stack на FreeBSD 11</a></li>
+                                <li><a href="/help/bsd/mongodb-na-freebsd">Установка и настройка MongoDB и создание СУБД на FreeBSD 11</a></li>
+                                <li><a href="/help/bsd/rasshirenie-razdela-pfsense22">Увеличение дискового пространства в PFSense 2.3</a></li>
+                                <li><a href="/help/bsd/rasshirenie-razdela-freebsd10">Увеличение дискового пространства во FreeBSD 10/11</a></li>
+                                <li><a href="/help/bsd/montirovanie-diska-vo-freebsd">Добавление диска и создание разделов во FreeBSD</a></li>
+                                <li><a href="/help/bsd/podkljuchenie-freebsd-k-seti">Настройка FreeBSD и подключение к сети</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/website-hosting" itemprop="url">Хостинг сайта</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/website-hosting/domain_work">Настройка корректной работы доменного адреса</a></li>
+                                <li><a href="/help/website-hosting/domain_registration">Как зарегистрировать домен</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-spina-cms-na-ubuntu-18-04">Установка Spina CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-piwigo-photo-gallery-na-ubuntu-18-04">Установка Piwigo Photo Gallery на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-black-cat-cms-na-ubuntu-18-04">Установка BlackCat CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-alchemy-cms-na-vps-ubuntu-18-04">Установка Alchemy CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-locomotive-cms-na-ubuntu-18-04">Установка Locomotive CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-refinery-cms-na-ubuntu-18-04">Установка Refinery CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-camaleon-cms-na-ubuntu-18-04">Установка Camaleon CMS на Ubuntu 18.04</a></li>
+                                <li><a href="/help/website-hosting/podkljuchenie-hosta-ili-domena-k-usluge-monitoringa">Как подключить хост или домен к услуге мониторинг?</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-drupal-8-v-konteynere-docker">Установка Drupal 8 в контейнере Docker</a></li>
+                                <li><a href="/help/website-hosting/ustanovka-modx-na-ubuntu">Как установить MODX на Ubuntu 16.04</a></li>
+                                <li><a href="/help/website-hosting/kak-ustanovit-opencart-na-ubuntu">Установка и настройка CMS OpenCart 3 на Ubuntu и Debian</a></li>
+                                <li><a href="/help/website-hosting/kak-ustanovit-drupal-8-na-iis">Как установить Drupal 8 на IIS</a></li>
+                                <li><a href="/help/website-hosting/bitrix-na-windows">Установка CMS Bitrix на Windows Server</a></li>
+                                <li><a href="/help/website-hosting/drupal-na-windows">Установка Drupal на Windows</a></li>
+                                <li><a href="/help/website-hosting/cs-cart-na-windows">Установка CMS CS-Cart на Windows Server</a></li>
+                                <li><a href="/help/website-hosting/cs-cart-na-ubuntu">Как установить CS-Cart на ОС Ubuntu</a></li>
+                                <li><a href="/help/website-hosting/wordpress-na-ubuntu">Установка WordPress на Ubuntu</a></li>
+                                <li><a href="/help/website-hosting/kak-ustanovit-joomla-3-na-ubuntu">Установка Joomla 3 на Ubuntu 16.04</a></li>
+                                <li><a href="/help/website-hosting/drupal-na-ubuntu-i-debian">Как установить Drupal 8 на Ubuntu/Debian</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/network" itemprop="url">Сеть</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/network/compression">Доступные алгоритмы сжатия CDN</a></li>
+                                <li><a href="/help/network/cdn_connection">Подключение CDN</a></li>
+                                <li><a href="/help/network/balancer">Балансировщик сетевой нагрузки</a></li>
+                                <li><a href="/help/network/mirtotik_create_and_connect">Развертывание Mikrotik RouterOS и подключение к виртуальному роутеру</a></li>
+                                <li><a href="/help/network/nastrojka-vpn-tonnelya-mezhdu-marshrutiziruemoj-setyu-1cloud-i-vyos">Настройка VPN-тоннеля между маршрутизируемой сетью 1cloud и VyOS</a></li>
+                                <li><a href="/help/network/nastrojka-vpn-tonnelya-mezhdu-setyu-1cloud-i-pfsense">Настройка VPN-тоннеля между маршрутизируемой сетью 1cloud и PfSense</a></li>
+                                <li><a href="/help/network/sozdanie-marshruteziruemoi-seti">Создание маршрутизируемой сети</a></li>
+                                <li><a href="/help/network/nastroika-nat-v-paneli-upravleniya">Настройка NAT в панели управления</a></li>
+                                <li><a href="/help/network/nastrojka-vpn-v-paneli-upravleniya-1cloud">Настройка VPN в панели управления 1cloud</a></li>
+                                <li><a href="/help/network/nastroika-samba-v-lokalnoj-seti">Настройка файлового сервера в локальной сети на Windows/Linux</a></li>
+                                <li><a href="/help/network/nastroika-ipv6-na-freebsd">Настройка IPv6 на FreeBSD</a></li>
+                                <li><a href="/help/network/nastroika-ipv6-na-ubuntu-debian">Настройка IPv6 на Ubuntu/Debian</a></li>
+                                <li><a href="/help/network/podklychenie-ipv6">Подключение и настройка IPv6 к серверам</a></li>
+                                <li><a href="/help/network/nastroika-vpn-virtual-private-network-na-vyos">Настройка site-to-site VPN сети с помощью VyOS</a></li>
+                                <li><a href="/help/network/obhod-blokirovki">Как обойти блокировку сайта с помощью VPS 1cloud?</a></li>
+                                <li><a href="/help/network/marshrutizacija-seti-na-pfsense">Маршрутизация внутри локальной сети на pfSense</a></li>
+                                <li><a href="/help/network/comparevpntypes">Сравнительный обзор реализаций технологии VPN: что выбрать?</a></li>
+                                <li><a href="/help/network/securitychecklist">Чек-лист параметров безопасности сервера Windows/Linux</a></li>
+                                <li><a href="/help/network/openvpn_additional_feautures">Дополнительные возможности OpenVPN по обеспечению безопасности виртуальной частной сети</a></li>
+                                <li><a href="/help/network/nastrojka-point-to-site-vpn-s-pomoshchyu-openvpn-remote-access-server-na-pfsense">Настройка Point-to-site VPN с помощью OpenVPN Remote Access Server на pfSense 2.3</a></li>
+                                <li><a href="/help/network/nistrojka-site-to-site-pn-pfsense">Настройка Site-to-Site VPN с помощью pfSense 2.3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/dns" itemprop="url">DNS</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/dns/dnshostingusage">Услуга &quot;DNS-хостинг&quot;: краткое руководство</a></li>
+                                <li><a href="/help/dns/file-hosts">Как найти и отредактировать файл Hosts</a></li>
+                                <li><a href="/help/dns/dns_basics">Основы работы со службой DNS</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/ssl" itemprop="url">SSL-сертификаты</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/ssl/about_ssl">Как выбрать SSL-сертификат</a></li>
+                                <li><a href="/help/ssl/ustanovka-ssl-sertifikata-v-amazon-aws">Установка SSL-сертификата для веб-сервисов Amazon AWS</a></li>
+                                <li><a href="/help/ssl/kak-pri-pomoshchi-openssl-proverit-sootvetstvie-klyucha-i-sertifikata">Проверка соответствия ключа и сертификата</a></li>
+                                <li><a href="/help/ssl/prodlenie-ssl-sertificata">Как продлить SSL-сертификат</a></li>
+                                <li><a href="/help/ssl/sposobi-validatsii">Пошаговое описание процессов валидации при заказе сертификата</a></li>
+                                <li><a href="/help/ssl/ssl-test-30days">Тестирование SSL-сертификата</a></li>
+                                <li><a href="/help/ssl/installssliis">Установка SSL-сертификата на IIS 8</a></li>
+                                <li><a href="/help/ssl/sgenerirovat-csr-zapros">Заполнение полей при генерации CSR</a></li>
+                                <li><a href="/help/ssl/ustanovka-ssl-sertifikata-v-ispmanager">Добавление SSL-сертификата в ISPmanager</a></li>
+                                <li><a href="/help/ssl/installsslbitrix">Установка SSL-сертификата на 1С-Битрикс</a></li>
+                                <li><a href="/help/ssl/installsslnginx">Установка SSL-сертификата на Nginx (Linux)</a></li>
+                                <li><a href="/help/ssl/orderssllinux">Генерация CSR-запроса на Linux/MacOS</a></li>
+                                <li><a href="/help/ssl/installsslapache">Установка SSL-сертификата на Apache (Linux)</a></li>
+                                <li><a href="/help/ssl/orderssliis">Генерация CSR-запроса в IIS 8</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/cloud-storage" itemprop="url">Облачное хранилище</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/cloud-storage/upravlenie-vozmozhnostyami-obektnogo-hranilishcha">Управление возможностями объектного хранилища</a></li>
+                                <li><a href="/help/cloud-storage/kopirovanie-dannykh-v-khranilishhe-s-pomoshhyu-python">Резервное копирование данных в хранилище с помощью Python на Linux/Windows</a></li>
+                                <li><a href="/help/cloud-storage/backup-saita-v-obektnoe-hranilishhe-linux">Создание резервной копий сайта в хранилище 1cloud на Linux</a></li>
+                                <li><a href="/help/cloud-storage/avtomaticheskaja-otpravka-backup-bd-mysql-v-obektnoe-hranilishhe-linux">Настройка автоматической отправки резервных копий БД MySQL в хранилище 1cloud на Linux</a></li>
+                                <li><a href="/help/cloud-storage/ispolzovanie-api-dlya-rabotyi-s-hranilischem">Использование 1cloud API и Swift API для работы пользователей с хранилищем</a></li>
+                                <li><a href="/help/cloud-storage/swift3-i-s3curl-dlya-obektnogo-hranilishcha-linux">Использование swift3 и s3curl для работы с хранилищем в Linux</a></li>
+                                <li><a href="/help/cloud-storage/rclone-dlya-raboty-s-oblachnym-hranilishchem">Использование Rclone для работы с облачным хранилищем</a></li>
+                                <li><a href="/help/cloud-storage/upravlenie-oblachnyim-hranilischem-s3-browser">Как управлять облачным хранилищем через S3 Browser</a></li>
+                                <li><a href="/help/cloud-storage/podklyuchenie-k-oblacnomu-hranilischu-swift-api">Подключение к облачному хранилищу по Swift API</a></li>
+                                <li><a href="/help/cloud-storage/upravlenie-oblachnyim-hranilischem-cherez-cyberduck">Управление облачным хранилищем с помощью Cyberduck</a></li>
+                                <li><a href="/help/cloud-storage/podklyuchenie-po-protokolu-s3-browser">Подключение к хранилищу по протоколу S3</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/migration" itemprop="url">Миграция в облако</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/migration/kak-migrirovat-v-1cloud">Как мигрировать в облако 1cloud?</a></li>
+                                <li><a href="/help/migration/migracija-virtualnoj-mashiny-vmware">Перенос виртуальной машины VMware</a></li>
+                                <li><a href="/help/migration/migracija-azure-v-vmware">Перенос сервера из Microsoft Azure на виртуальную машину VMware</a></li>
+                                <li><a href="/help/migration/ustanovka-azure-powershell">Установка Azure PowerShell</a></li>
+                                <li><a href="/help/migration/konvertacija-hyper-v-vmware">Конвертация Hyper-V в VMware</a></li>
+                                <li><a href="/help/migration/perenos-servera-iz-amazon-ec2">Перенос сервера из Amazon EC2 на виртуальную машину VMware</a></li>
+                                <li><a href="/help/migration/ustanovka-amazon-ec2-cli">Установка Amazon EC2 CLI на виртуальный сервер</a></li>
+                                <li><a href="/help/migration/migracija-linux-na-vmware">Перенос физического сервера Linux на виртуальную машину VMware</a></li>
+                                <li><a href="/help/migration/migracija-windows-na-vmware">Перенос физического сервера Windows на виртуальную машину VMware</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="/help/backup" itemprop="url">Резервное копирование</a>
+                        <ul class="dropdown-menu dropdown-menu--relative">
+                                <li><a href="/help/backup/backup_overview">Резервное копирование</a></li>
+                        </ul>
+                    </li>
+        </ul>
+    </nav>
+    <div class="sidebar__banner">
+        <a class="sidebar__banner-link" href="https://t.me/cloudprovider">
+            <picture>
+                <source media="(max-width: 767px)" srcset="/img/sidebar/side-banner_dark_mobile.png" />
+                <source media="(min-width: 768px) and (max-width: 991px)" srcset="/img/sidebar/side-banner_dark_tablet.png" />
+                <img src="/img/sidebar/side-banner_dark_desktop.png" alt="Telegram-канал компании 1cloud" />
+            </picture>
+        </a>
+    </div>
+</aside>
+                </div>
+
+                <div class="modal oc-modal fade subscribe__popup" tabindex="-1" role="dialog" id="subscribe-popup">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+
+        
+<footer class="footer main-footer" itemscope itemtype="https://schema.org/WPFooter">
+    <div class="container">
+        <div class="footer__contacts footer__block">
+            <ul class="footer__contacts-list">
+                <li class="footer__contacts-item"><a href="mailto:support@cloud.mts.ru" onclick="reachCounterGoal('testrequesttomail');" class="footer__email">support@cloud.mts.ru</a></li>
+                <li class="footer__contacts-item"><span class="footer__email">Телефон технической поддержки: <a href="tel:88002501001" class="footer__phone">8 (800) 250-10-01</a></span></li>
+				<li class="footer__contacts-item footer__achievements">
+					<a href="https://www.cnews.ru/reviews/iaas_enterprise_2023/review_table/058a4253bfa1e649a2dc6e5223ef855e308f6edc">
+						<img src="/img/icons/achievement.svg" alt="" width="22" height="22" />
+						CNews Analytics: рейтинг провайдеров<br />IaaS Enterprise 2023: 1 место
+					</a>
+					<a href="https://glavhost.ru/hosting/kazakhstan">
+						<img src="/img/icons/achievement.svg" alt="" width="22" height="22" />
+						GlavHost: рейтинг хостингов<br />Казахстана: 1 место
+					</a>
+				</li>
+                <li class="footer__contacts-item footer__social">
+                    <div class="social">
+                        <a class="social__item social__item--telegram" href="https://t.me/cloudprovider" onclick="reachCounterGoal('telegram', 'social');" target="_blank" title="Мы в Telegram" data-toggle="tooltip">
+    <svg class="social__svg" width="30px" height="30px">
+        <use xlink:href="/img/icons/sprite-social.svg#telegram"></use>
+    </svg>
+</a>
+<a class="social__item social__item--vkontakte" href="https://vk.com/1cloud" onclick="reachCounterGoal('vkontakte', 'social');" target="_blank" title="Мы ВКонтакте" data-toggle="tooltip">
+    <svg class="social__svg" width="30px" height="30px">
+        <use xlink:href="/img/icons/sprite-social.svg#vkontakte"></use>
+    </svg>
+</a>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__top footer__block">
+            <div class="footer__logo logo">
+                <a href="/" class="logo__link">
+                    <picture class="logo__img img-responsive">
+                        <source media="(min-width: 992px)" srcset="/img/logo-mts-1cloud-vertical.svg" />
+                        <img src="/img/logo-mts-1cloud-horizontal.svg" alt="" width="134" height="220" />
+                    </picture>
+                </a>
+            </div>
+
+<div class="footer__section">
+    <h6 class="footer__section-title">Услуги</h6>
+    <ul class="footer__menu">
+            <li>
+                <span class="footer__menu-title">Инфраструктура</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/services/vps-vds">Виртуальный сервер</a>
+                    </li>
+                    <li>
+                        <a href="/services/cloud-servers">VPS/VDS <small>на базе Open Source</small></a>
+                    </li>
+                    <li>
+                        <a href="/services/vdc">Виртуальный ЦОД</a>
+                    </li>
+                    <li>
+                        <a href="/services/private-cloud">Частное облако</a>
+                    </li>
+                    <li>
+                        <a href="/services/rds-vdi">RDS/VDI <small>удалённый рабочий стол</small></a>
+                    </li>
+                    <li>
+                        <a href="/services/licenses">Партнёрские лицензии</a>
+                    </li>
+                    <li>
+                        <a href="/services/cloud-servers-for-business">Облако 1cloud для малого и&nbsp;среднего&nbsp;бизнеса</a>
+                    </li>
+                    <li>
+                        <a href="/services/colocation">Colocation</a>
+                    </li>
+                    <li>
+                        <a href="/services/disaster-recovery">Disaster Recovery</a>
+                    </li>
+                    <li>
+                        <a href="/services/kubernetes">Kubernetes</a>
+                    </li>
+                    <li>
+                        <a href="/services/baas">BaaS</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Хранение данных</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/services/cloud-disk">Диск 1cloud <small>файловое хранилище</small></a>
+                    </li>
+                    <li>
+                        <a href="/services/storage">Облачное хранилище S3</a>
+                    </li>
+                    <li>
+                        <a href="/services/veeam-cloud-connect">Veeam Cloud Connect</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Сети</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/services/dns">DNS-хостинг</a>
+                    </li>
+                    <li>
+                        <a href="/services/anti-ddos">Anti-DDoS <small>Qrator</small></a>
+                    </li>
+                    <li>
+                        <a href="/services/cdn">CDN</a>
+                    </li>
+                    <li>
+                        <a href="/services/sd-wan">SD-WAN</a>
+                    </li>
+                    <li>
+                        <a href="/services/domains">Домены (<span class="new">new</span>)</a>
+                    </li>
+                    <li>
+                        <a href="/services/vpn">VPN</a>
+                    </li>
+                    <li>
+                        <a href="/services/monitoring">Мониторинг состояния сервисов (<span class="new">new</span>)</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Безопасность</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/services/fz-152">Облако ФЗ-152</a>
+                    </li>
+                    <li>
+                        <a href="/services/pci-dss">PCI DSS хостинг</a>
+                    </li>
+                    <li>
+                        <a href="/services/ssl-globalsign">SSL-сертификаты</a>
+                    </li>
+                    <li>
+                        <a href="/services/waf">WAF</a>
+                    </li>
+                    <li>
+                        <a href="/services/soc">SOC</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Мультиоблако</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/services/azure">Microsoft Azure</a>
+                    </li>
+                    <li>
+                        <a href="/services/aws">Amazon Web Services</a>
+                    </li>
+                </ul>
+            </li>
+    </ul>
+</div>        </div>
+        <div class="footer__middle footer__block hidden-xs hidden-sm">
+
+<div class="footer__section">
+    <h6 class="footer__section-title">Проектные решения</h6>
+    <ul class="footer__menu">
+            <li>
+                <span class="footer__menu-title">Консалтинг</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/proektnye-resheniya/cloud-journey">Cloud journey</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/audit-i-proektirovanie">Аудит и проектирование</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/informacionnaya-bezopasnost">Информационная безопасность</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Реализация</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/proektnye-resheniya/professionalnye-servisy">Профессиональные сервисы</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/migraciya-v-oblako">Миграция в облако</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/upravlenie-oblachnoj-infrastrukturoj">Управление инфраструктурой</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Решения</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/proektnye-resheniya/private-cloud">Частное облако</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/hybrid-cloud">Гибридное облако</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/sap-hosting">SAP-хостинг</a>
+                    </li>
+                    <li>
+                        <a href="/proektnye-resheniya/kompleksnye-infrastrukturnye-proekty">Комплексные инфраструктурные проекты</a>
+                    </li>
+                </ul>
+            </li>
+    </ul>
+</div>
+<div class="footer__section">
+    <h6 class="footer__section-title">О компании</h6>
+    <ul class="footer__menu">
+            <li>
+                <span class="footer__menu-title">Общая информация</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/company/contact">Контакты</a>
+                    </li>
+                    <li>
+                        <a href="/company/feedback/1">Отзывы</a>
+                    </li>
+                    <li>
+                        <a href="/news/1">Новости</a>
+                    </li>
+                    <li>
+                        <a href="/blog/1">Блог</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">ЦОДы</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/infrastructure/datacenter-saint-petersburg">ЦОД Санкт-Петербург</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-moskow">ЦОД Москва</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-astana">ЦОД Астана</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-almaty">ЦОД Алма-Ата</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-minsk">ЦОД Минск</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-tallinn">ЦОД Таллин</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/datacenter-amsterdam">ЦОД Амстердам</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="footer__menu-title">Структура облака</span>
+                <ul class="footer__submenu">
+                    <li>
+                        <a href="/infrastructure/panel-upravleniya">Панель управления</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/hardware">Оборудование</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/arkhitektura-oblaka-1cloud">Архитектура облака</a>
+                    </li>
+                    <li>
+                        <a href="/infrastructure/puly-resursov">Пулы ресурсов</a>
+                    </li>
+                </ul>
+            </li>
+    </ul>
+</div>        </div>
+        <div class="footer__bottom footer__block hidden-xs hidden-sm">
+
+<div class="footer__section">
+    <h6 class="footer__section-title">Решения</h6>
+    <ul class="footer__submenu">
+        <li>
+            <a href="/services/vps-vds/windows">Сервер Windows</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/linux">Сервер Linux</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/freebsd">Сервер BSD</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/server-dlja-hostinga-sajtov">Сервер для сайта</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/testing">Тестовый сервер</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/remote-server-1c">Сервер для 1С</a>
+        </li>
+        <li>
+            <a href="/services/vps-vds/vds-for-trader">Сервер для трейдинга (<span class="new">new</span>)</a>
+        </li>
+        <li>
+            <a href="/services/web-hosting">Веб-хостинг (<span class="new">new</span>)</a>
+        </li>
+        <li>
+            <a href="/services/security-audit">Аудит ИБ (<span class="new">new</span>)</a>
+        </li>
+        <li>
+            <a href="/services/haas">HaaS (<span class="new">new</span>)</a>
+        </li>
+    </ul>
+</div>
+<div class="footer__section">
+    <h6 class="footer__section-title">SSL-сертификаты</h6>
+    <ul class="footer__submenu">
+        <li>
+            <a href="/services/ssl-globalsign/alpha-ssl-dv">AlphaSSL (DV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/alpha-ssl-wildcard-dv">AlphaSSL Wildcard (DV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/domain-ssl-dv">DomainSSL (DV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/domain-ssl-wildcard-dv">DomainSSL Wildcard (DV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/organization-ssl-ov">OrganizationSSL (OV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/organization-ssl-wildcard-ov">OrganizationSSL Wildcard (OV)</a>
+        </li>
+        <li>
+            <a href="/services/ssl-globalsign/extended-ssl-ev">ExtendedSSL (EV)</a>
+        </li>
+    </ul>
+</div>
+<div class="footer__section">
+    <h6 class="footer__section-title">Условия</h6>
+    <ul class="footer__submenu">
+        <li>
+            <a href="/conditions/paymentrule">Цены</a>
+        </li>
+        <li>
+            <a href="/conditions/useragreement">Договор</a>
+        </li>
+        <li>
+            <a href="/conditions/sla">SLA</a>
+        </li>
+        <li>
+            <a href="/conditions/referral">Партнёрская программа</a>
+        </li>
+        <li>
+            <a href="/conditions/test-period">Тестовый период</a>
+        </li>
+    </ul>
+</div>
+<div class="footer__section">
+    <h6 class="footer__section-title">Полезные ссылки</h6>
+    <ul class="footer__submenu">
+        <li>
+            <a href="/api">API</a>
+        </li>
+        <li>
+            <a href="/help">Помощь</a>
+        </li>
+        <li>
+            <a href="/blog/1">Блог 1cloud</a>
+        </li>
+        <li>
+            <a href="/services/ssl/csr-generator-online">Генератор CSR</a>
+        </li>
+        <li>
+            <a href="/sitemap">Карта сайта</a>
+        </li>
+    </ul>
+</div>        </div>
+        <div class="footer__copyright footer__block">
+            <p>
+                Все права защищены © 2012-<span itemprop="copyrightYear">2024</span> <a href="https://1cloud.ru"><span itemprop="copyrightHolder">1cloud.ru</span></a>
+            </p>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    
+<div id="menu-mobile" class="mm">
+    <nav class="menu__nav">
+        <h6><span>Меню</span></h6>
+        <ul>
+
+<li>
+    <a href="/services">
+        <i class="fa fa-certificate"></i>Услуги
+    </a>
+    <h6>
+        <i class="fa fa-certificate"></i><span>Услуги</span>
+    </h6>
+    <ul>
+            <li>
+                <a>
+                    <i class="fa fa-server"></i>Инфраструктура
+                </a>
+                <h6>
+                    <i class="fa fa-server"></i><span>Инфраструктура</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/services/vps-vds">Виртуальный сервер</a>
+                        </li>
+                        <li>
+                            <a href="/services/cloud-servers">VPS/VDS<br><small>на базе Open Source</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/vdc">Виртуальный ЦОД</a>
+                        </li>
+                        <li>
+                            <a href="/services/private-cloud">Частное облако</a>
+                        </li>
+                        <li>
+                            <a href="/services/rds-vdi">RDS/VDI<br><small>удалённый рабочий стол</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/licenses">Партнёрские лицензии</a>
+                        </li>
+                        <li>
+                            <a href="/services/colocation">Colocation</a>
+                        </li>
+                        <li>
+                            <a href="/services/disaster-recovery">Disaster Recovery</a>
+                        </li>
+                        <li>
+                            <a href="/services/kubernetes">Kubernetes</a>
+                        </li>
+                        <li>
+                            <a href="/services/baas">BaaS</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-file"></i>Хранение данных
+                </a>
+                <h6>
+                    <i class="fa fa-file"></i><span>Хранение данных</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/services/cloud-disk">Диск 1cloud<br><small>файловое хранилище</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/storage">Облачное хранилище S3</a>
+                        </li>
+                        <li>
+                            <a href="/services/veeam-cloud-connect">Veeam Cloud Connect</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-shield"></i>Безопасность
+                </a>
+                <h6>
+                    <i class="fa fa-shield"></i><span>Безопасность</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/services/fz-152">Облако ФЗ-152</a>
+                        </li>
+                        <li>
+                            <a href="/services/pci-dss">PCI DSS хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/services/ssl-globalsign">SSL-сертификаты</a>
+                        </li>
+                        <li>
+                            <a href="/services/waf">WAF</a>
+                        </li>
+                        <li>
+                            <a href="/services/soc">SOC</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-cloud"></i>Мультиоблако
+                </a>
+                <h6>
+                    <i class="fa fa-cloud"></i><span>Мультиоблако</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/services/azure">Microsoft Azure</a>
+                        </li>
+                        <li>
+                            <a href="/services/aws">Amazon Web Services</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-globe"></i>Сети
+                </a>
+                <h6>
+                    <i class="fa fa-globe"></i><span>Сети</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/services/dns">DNS-хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/services/anti-ddos">Anti-DDoS<br><small>Qrator</small></a>
+                        </li>
+                        <li>
+                            <a href="/services/cdn">CDN</a>
+                        </li>
+                        <li>
+                            <a href="/services/sd-wan">SD-WAN</a>
+                        </li>
+                        <li>
+                            <a href="/services/domains">Домены (<span class="new">new</span>)</a>
+                        </li>
+                </ul>
+            </li>
+    </ul>
+</li>
+<li>
+    <a href="/proektnye-resheniya">
+        <i class="fa fa-cogs"></i>Проектные решения
+    </a>
+    <h6>
+        <i class="fa fa-cogs"></i><span>Проектные решения</span>
+    </h6>
+    <ul>
+            <li>
+                <a>
+                    <i class="fa fa-commenting-o"></i>Консалтинг
+                </a>
+                <h6>
+                    <i class="fa fa-commenting-o"></i><span>Консалтинг</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/proektnye-resheniya/cloud-journey">Cloud journey</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/audit-i-proektirovanie">Аудит и проектирование</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/informacionnaya-bezopasnost">Информационная безопасность</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-retweet"></i>Реализация
+                </a>
+                <h6>
+                    <i class="fa fa-retweet"></i><span>Реализация</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/proektnye-resheniya/professionalnye-servisy">Профессиональные сервисы</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/migraciya-v-oblako">Миграция в облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/upravlenie-oblachnoj-infrastrukturoj">Управление инфраструктурой</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-tachometer"></i>Решения
+                </a>
+                <h6>
+                    <i class="fa fa-tachometer"></i><span>Решения</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/proektnye-resheniya/private-cloud">Частное облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/hybrid-cloud">Гибридное облако</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/sap-hosting">SAP-хостинг</a>
+                        </li>
+                        <li>
+                            <a href="/proektnye-resheniya/kompleksnye-infrastrukturnye-proekty">Комплексные инфраструктурные проекты</a>
+                        </li>
+                </ul>
+            </li>
+    </ul>
+</li>
+
+<li>
+    <a href="/conditions">
+        <i class="fa fa-book"></i>Условия
+    </a>
+
+        <h6>
+            <i class="fa fa-book"></i><span>Условия</span>
+        </h6>
+        <ul>
+                <li>
+                    <a href="/conditions">Условия</a>
+                </li>
+                <li>
+                    <a href="/conditions/paymentrule">Стоимость</a>
+                </li>
+                <li>
+                    <a href="/conditions/useragreement">Оферта</a>
+                </li>
+                <li>
+                    <a href="/conditions/sla">SLA</a>
+                </li>
+                <li>
+                    <a href="/conditions/referral">Партнёрская программа</a>
+                </li>
+                <li>
+                    <a href="/conditions/test-period">Тестовый период</a>
+                </li>
+        </ul>
+</li>
+<li>
+    <a href="/company">
+        <i class="fa fa-flag"></i>О компании
+    </a>
+    <h6>
+        <i class="fa fa-flag"></i><span>О компании</span>
+    </h6>
+    <ul>
+            <li>
+                <a>
+                    <i class="fa fa-group"></i>Общая информация
+                </a>
+                <h6>
+                    <i class="fa fa-group"></i><span>Общая информация</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/company/contact">Контакты</a>
+                        </li>
+                        <li>
+                            <a href="/company/feedback/1">Отзывы</a>
+                        </li>
+                        <li>
+                            <a href="/news/1">Новости</a>
+                        </li>
+                        <li>
+                            <a href="/blog/1">Блог</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-cubes"></i>ЦОДы
+                </a>
+                <h6>
+                    <i class="fa fa-cubes"></i><span>ЦОДы</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/infrastructure/datacenter-saint-petersburg">ЦОД Санкт-Петербург</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-moskow">ЦОД Москва</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-astana">ЦОД Астана</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-almaty">ЦОД Алма-Ата</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-minsk">ЦОД Минск</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-tallinn">ЦОД Таллин</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/datacenter-amsterdam">ЦОД Амстердам</a>
+                        </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-cog"></i>Структура облака
+                </a>
+                <h6>
+                    <i class="fa fa-cog"></i><span>Структура облака</span>
+                </h6>
+                <ul>
+                        <li>
+                            <a href="/infrastructure/panel-upravleniya">Панель управления</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/hardware">Оборудование</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/arkhitektura-oblaka-1cloud">Архитектура облака</a>
+                        </li>
+                        <li>
+                            <a href="/infrastructure/puly-resursov">Пулы ресурсов</a>
+                        </li>
+                </ul>
+            </li>
+    </ul>
+</li>
+
+<li>
+    <a href="/help">
+        <i class="fa fa-comments-o"></i>Помощь
+    </a>
+
+</li>
+
+<li>
+    <a href="/api">
+        <i class="fa fa-rocket"></i>API
+    </a>
+
+</li>
+
+<li>
+    <a href="/blog">
+        <i class="fa fa-pencil-square-o"></i>Блог
+    </a>
+
+</li>        </ul>
+    </nav>
+</div>
+
+
+<script src="https://static.1cloud.ru/js/global/jquery-2.2.2.min.js"></script>
+<script src="https://static.1cloud.ru/js/global/modernizr-custom.js"></script>
+<script src="https://static.1cloud.ru/js/global/bootstrap.min.js"></script>
+<script src="https://auth.1cloud.ru/auth-status.js"></script>
+
+<script>
+	var textDelete = 'Удалить',
+		textSending = 'Отправляем...',
+		textSent = 'Успешно отправлено',
+		textTurnOn = 'Включено',
+		textTurnOff = 'Выключено',
+		textRequired = 'Поле обязательно для заполнения',
+		textConfirmRequired = 'Необходимо подтвердить свое согласие',
+		textServerError = 'К сожалению,на сервере произошла ошибка. Попробуйте повторить операцию позднее и, если проблема повторится, <a href="/company/contact" title="Создать обращение  в службу поддержки">сообщите нам</a>',
+		textServerErrorTitle = 'Ошибка сервера',
+		textEmailInvalid = 'Поле Email содержит недопустимый адрес электронной почты.',
+		textSubscribeSuccess = 'Благодарим за подписку! Мы отправили на указанную почту письмо с подтверждением, чтобы проверить правильность email адреса. Откройте его и перейдите по ссылке.',
+		textSendCur = '';
+</script><script src="https://static.1cloud.ru/js/global/owl.carousel.min.js"></script>
+<script src="https://static.1cloud.ru/js/global/jquery.multilevelpushmenu.min.js"></script>
+<script src="https://static.1cloud.ru/js/global/highlight.pack.js"></script>
+<script src="https://static.1cloud.ru/js/global/jquery.validate.min.js"></script>
+<script src="https://static.1cloud.ru/js/global/jquery.validate.messages_ru-v2.min.js"></script>
+<script src="https://static.1cloud.ru/js/global/bootstrap-select-v2.js"></script>
+<script src="https://static.1cloud.ru/js/global/bootstrap-select-ru_RU-v2.js"></script>
+<script defer src="/js/components/svgxuse.min.js"></script>
+
+<script type="text/javascript" src="/js/common"></script>
+
+
+	<script>
+		var urlSendRating = '/help/article/rating',
+            techTitle = 'gruppovye-politiki-active-directory';
+	</script>
+	<script type="text/javascript" src="/js/help"></script>
+	<script type="text/javascript" src="/js/subscribe"></script>
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet preload prefetch" as="style" href="/css/fonts" />
+<script>
+    (function setFingerPrint() {
+        setTimeout(function () {
+            var secureTag = ((location.protocol === 'https:') ? ';secure' : '');
+
+            new Fingerprint2().get(function (result) {
+                document.cookie = 'fp=' + result + ';domain=.1cloud.ru;path=/' + secureTag;
+            });
+        }, 1000);
+    })();
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-35796118-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-35796118-1', {
+        'optimize_id': 'GTM-KXN3G3K',
+        'cookie_expires': 0
+    });
+</script>
+
+<script>!function () { var t = document.createElement("script"); t.type = "text/javascript", t.async = !0, t.src = "https://vk.com/js/api/openapi.js?159", t.onload = function () { VK.Retargeting.Init("VK-RTRG-1244-fgAEo"), VK.Retargeting.Hit() }, document.head.appendChild(t) }();</script>
+<noscript><img src="https://vk.com/rtrg?p=VK-RTRG-1244-fgAEo" style="position:fixed; left:-999px;visibility:hidden;opacity:0;display:none;" alt="" /></noscript>
+
+<script>
+    (function () {
+        var widget_id = 'S8QN5mJXrP';
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/' + widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);
+    })();</script>
+
+<script type="text/javascript">
+    (function (i, s, o, g, r, a, m) {
+        i['__GetResponseAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) };
+        a = s.createElement(o); m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+    })(window, document, 'script', 'https://email.1cloud.ru/script/ga.js?v=2&grid=pDVgDMkZYdX4NBXN4', 'GrTracking');
+
+    // Creates a default GetResponse Tracker with automatic cookie domain configuration.
+    GrTracking('setDomain', 'auto');
+
+    // Sends a pageview hit from the tracker just created.
+    // allways load current window.location.href - usefull for single page applications
+    GrTracking('push');
+</script>
+<script type="text/javascript">
+    (function () {
+        var url = new URL(document.location);
+        var utm = {
+            utm_source: url.searchParams.get("utm_source"),
+            utm_campaign: url.searchParams.get("utm_campaign"),
+            utm_medium: url.searchParams.get("utm_medium"),
+            utm_content: url.searchParams.get("utm_content"),
+            utm_term: url.searchParams.get("utm_term")
+        }
+        var expires = new Date();
+        var time = expires.getTime();
+        time += 3600 * 1000;
+        expires.setTime(time);
+        domain = document.location.hostname;
+
+        for (const [key, value] of Object.entries(utm)) {
+            if (value) {
+                document.cookie = `${key}=${encodeURIComponent(value)};expires=${expires.toUTCString()};domain=${domain};path=/`;
+            }
+        }
+    })();
+</script>
+</body>
+</html>
